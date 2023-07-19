@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --max-width: 1440px;
-
 
   /* fonts */
   --font-poppins: "Poppins", sans-serif;
@@ -16,4 +18,10 @@
   --black: #2d2d2d;
   --lightgrey: #828181;
   --darkgrey: #676666;
+}
+
+.main {
+  min-height: 100vh;
+  max-width: var(--max-width);
+  font-family: var(--font-poppins);
 }
