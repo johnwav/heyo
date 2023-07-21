@@ -2,8 +2,9 @@ import { SignIn } from "@/components/Action/Action";
 import ChatCard from "@/components/ChatCard/ChatCard";
 import ChatHeader from "@/components/ChatHeader/ChatHeader";
 import ChatTextFeild from "@/components/ChatTextFeild/ChatTextFeild";
-import SearchChats from "@/components/SearchChats/SearchChats"
+import SearchChats from "@/components/SearchChats/SearchChats";
 import { GoogleSignIn } from "@/components/Google/Google";
+import CurrentUser from "@/components/CurrentUser/CurrentUser";
 
 export default function Test() {
   return (
@@ -27,6 +28,7 @@ export default function Test() {
         typing={false}
       />
       <SearchChats />
+      <CurrentUser firstName="Mason" lastName="Tyrell" profileImage="" />
     </div>
   );
 }

@@ -7,7 +7,7 @@ interface IButtonProps {
 interface IChatHeaderProps {
   firstName: string;
   lastName: string;
-  status: string;
+  status?: string;
   profileImage: string;
 }
 
