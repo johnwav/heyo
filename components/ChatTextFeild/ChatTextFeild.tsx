@@ -43,9 +43,9 @@ export default function ChatTextFeild() {
                 transform="translate(2 2)"
                 fill="none"
                 stroke="#2d2d2d"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
               />
               <path
                 id="Path_7061"
@@ -53,9 +53,9 @@ export default function ChatTextFeild() {
                 d="M8,14a5.4,5.4,0,0,0,4,2,5.4,5.4,0,0,0,4-2"
                 fill="none"
                 stroke="#2d2d2d"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
               />
               <line
                 id="Line_4"
@@ -64,9 +64,9 @@ export default function ChatTextFeild() {
                 transform="translate(9 9)"
                 fill="none"
                 stroke="#2d2d2d"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
               />
               <line
                 id="Line_5"
@@ -75,9 +75,9 @@ export default function ChatTextFeild() {
                 transform="translate(15 9)"
                 fill="none"
                 stroke="#2d2d2d"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
               />
             </g>
           </svg>
@@ -97,9 +97,9 @@ export default function ChatTextFeild() {
               transform="translate(-1.002 -1.004)"
               fill="none"
               stroke="#2d2d2d"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
             />
           </svg>
         </button>
@@ -118,7 +118,7 @@ export default function ChatTextFeild() {
 
       <div className="flex gap-8 pb-[8px]">
         {/* mircophone */}
-        <button>
+        <button className="hover:animate-pulse">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -136,9 +136,9 @@ export default function ChatTextFeild() {
                 d="M12,2A3,3,0,0,0,9,5v7a3,3,0,0,0,6,0V5A3,3,0,0,0,12,2Z"
                 fill="#2d2d2d"
                 stroke="#2d2d2d"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
               />
               <path
                 id="Path_7064"
@@ -146,9 +146,9 @@ export default function ChatTextFeild() {
                 d="M19,10v2A7,7,0,0,1,5,12V10"
                 fill="none"
                 stroke="#2d2d2d"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
               />
               <line
                 id="Line_6"
@@ -157,15 +157,15 @@ export default function ChatTextFeild() {
                 transform="translate(12 19)"
                 fill="none"
                 stroke="#2d2d2d"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
               />
             </g>
           </svg>
         </button>
         {/* send message */}
-        <button onClick={handleSubmit}>
+        <button onClick={handleSubmit} className=" hover:animate-pulse">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="52"
@@ -199,9 +199,9 @@ export default function ChatTextFeild() {
                   transform="translate(11 2)"
                   fill="none"
                   stroke="#fefefe"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                 />
                 <path
                   id="Path_7065"
@@ -209,9 +209,9 @@ export default function ChatTextFeild() {
                   d="M22,2,15,22l-4-9L2,9Z"
                   fill="none"
                   stroke="#fefefe"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                 />
               </g>
             </g>
