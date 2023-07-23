@@ -20,6 +20,10 @@ module.exports = {
         lightgrey: "#828181",
         darkgrey: "#676666",
       },
+      backgroundImage: {
+        appTexture: "url(/assets/app-texture.png)",
+        leftSvg: "url(/assets/left-svg.png)",
+      }
     },
   },
   plugins: [],
