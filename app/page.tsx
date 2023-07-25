@@ -1,5 +1,9 @@
+
+import {Signin} from "../components/Authentication/Signin";
 export default function Home() {
   return (
-    <main className="">HOME</main>
+    <main className="">
+      <Signin/>
+    </main>
   );
 }

@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 *,
 *::before,
 *::after {
@@ -42,3 +43,22 @@ img {
   font-family: var(--font-poppins);
 }
 
+.auth
+{
+  background-color: lightgrey;
+  background-image: url(../assets/Backgroundimg.jpg);
+}
+.authbox
+{
+  max-width: 507px;
+  height: 697px;
+  border: 2px solid #000;
+  opacity: 1;
+  color: var(--green);
+  background: url(../assets/authbackground.png) !important;
+
+}
+.authinput
+{
+  border-radius: 5px;
+}

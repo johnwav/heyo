@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="mx-auto w-full">{children}</body>
+      <body className="mx-auto w-full auth">{children}</body>
     </html>
   );
 }
