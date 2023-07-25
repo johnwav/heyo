@@ -1,4 +1,5 @@
 import Image from "next/image";
+import {Signin} from "../../../components/Authentication/Signin";
 
 export default function Login() {
   return (
@@ -25,6 +26,8 @@ export default function Login() {
           className=" z-[30] absolute max-w-[450px] max-h-[884px] w-[22%] h-[auto]"
           alt=""
         />
+
+      <Signin/>
       </div>
     </main>
   );
