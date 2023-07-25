@@ -1,44 +1,77 @@
+"use client";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { SignIn } from "../Action/Action";
+import GoogleSignIn from "../Google/Google";
 
-import Image from "next/image";
-import "@/styles/globals.css";
-import React from 'react'
+type SignInInputs = {
+  email: string;
+  password: string;
+};
 
-export const Signin = () => {
+export default function SignInComponent() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<SignInInputs>();
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
+  // console.log(watch("email"));
+  // console.log(watch("password"));
+
   return (
-    <div>
-        <div className='authbox mx-auto mb-3 rounded-[20px] mt-[99.96px] bg-contain bg-no-repeat'>
-        <form className='mt-[122px]'>
+    <div className="relative max-w-[507px] max-h-[697px] w-[26vw] min-w-[350px] h-[65vh] min-h-[500px] rounded-2xl bg-white">
+      <div className="z-20 absolute bg-Smask bg-cover w-full h-full rounded-2xl">
+        {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
+      </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="z-20 absolute flex gap-3 items-center justify-center flex-col w-full h-full rounded-2xl px-8 text-green"
+      >
+        {/* register your input into the hook by invoking the "register" function */}
+        <label className="w-full flex flex-col">
+          Email
+          <input
+            className="rounded-md p-3 border-green border-solid border-[1px] focus:outline-none"
+            {...register("email", { required: true })}
+          />
+          {/* errors will return when field validation fails  */}
+          {errors.email && (
+            <span className="text-[red] text-[12px]">
+              Please enter your email
+            </span>
+          )}
+        </label>
 
-          <div className="mb-5 mx-auto" style={{marginTop:'54px'}}>
-            <div className='w-[fit-content]'>
-            <label htmlFor="email" className='ml-[53px] mb-3'>Email</label>
-            </div>
-           
-            <input
-              className=" authinput block mx-auto appearance-none border w-[401px] h-[56px] py-2 px-3 mb-2  leading-tight focus:outline-none focus:shadow-outline"
-              id="email"
-              type="email"
-            />
-          </div>
+        {/* include validation with required or other standard HTML validation rules */}
+        <label className="w-full flex flex-col">
+          Password
+          <input
+            type="password"
+            className="rounded-md p-3 border-green border-solid border-[1px] focus:outline-none"
+            {...register("password", { required: true })}
+          />
+          {/* errors will return when field validation fails  */}
+          {errors.password && (
+            <span className="text-[red] text-[12px]">
+              Please enter your password
+            </span>
+          )}
+        </label>
 
-          <div className="mb-4 mx-auto">
-            <div className='w-[fit-content]'>
-            <label htmlFor="password" className='ml-[53px] mb-3'>Password</label>
-            </div>
-         
-            <input
-              className=" authinput appearance-none border block mx-auto w-[401px] h-[56px] py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
-              type="password"
-            />
+        <p className="text-[12px]">
+          Need help sigining in?{" "}
+          <strong className="text-[12px]">Click here</strong>
+        </p>
 
-            
-          </div>
+        <SignIn text="Sign in" />
+        <GoogleSignIn text="Continue with Google instead" />
 
-          
-          
-        </form>
-        </div>
+        <p className="text-[12px]">
+          New to Heyo? <strong className="text-[12px]">Sign Up</strong>
+        </p>
+      </form>
     </div>
-  )
+  );
 }
