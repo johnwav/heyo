@@ -23,6 +23,7 @@ module.exports = {
       backgroundImage: {
         appTexture: "url(/assets/app-texture.png)",
         leftSvg: "url(/assets/left-svg.png)",
+        Smask: "url(/assets/signintexture.png)"
       }
     },
   },
