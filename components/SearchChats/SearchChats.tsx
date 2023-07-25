@@ -31,9 +31,9 @@ export default function SearchChats() {
             transform="translate(3 3)"
             fill="none"
             stroke="#494949"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="3"
           />
           <line
             id="Line_1"
@@ -43,9 +43,9 @@ export default function SearchChats() {
             transform="translate(20.178 20.178)"
             fill="none"
             stroke="#494949"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="3"
           />
         </g>
       </svg>

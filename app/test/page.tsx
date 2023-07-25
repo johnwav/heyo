@@ -3,7 +3,7 @@ import ChatCard from "@/components/ChatCard/ChatCard";
 import ChatHeader from "@/components/ChatHeader/ChatHeader";
 import ChatTextFeild from "@/components/ChatTextFeild/ChatTextFeild";
 import SearchChats from "@/components/SearchChats/SearchChats";
-import { GoogleSignIn } from "@/components/Google/Google";
+import GoogleSignIn from "@/components/Google/Google";
 import CurrentUser from "@/components/CurrentUser/CurrentUser";
 
 export default function Test() {

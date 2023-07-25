@@ -1,10 +1,12 @@
-import Link from 'next/link'
+
+import Image from "next/image";
+import "@/styles/globals.css";
 import React from 'react'
 
 export const Signin = () => {
   return (
     <div>
-        <div className='authbox mx-auto mb-3 rounded-[20px] mt-[99.96px] bg-cover bg-center'>
+        <div className='authbox mx-auto mb-3 rounded-[20px] mt-[99.96px] bg-contain bg-no-repeat'>
         <form className='mt-[122px]'>
 
           <div className="mb-5 mx-auto" style={{marginTop:'54px'}}>
