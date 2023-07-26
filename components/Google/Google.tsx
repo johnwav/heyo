@@ -1,3 +1,6 @@
+import { IButtonProps } from "@/types/types";
+
+
 export  default function GoogleSignIn({ text }: IButtonProps) {
   return (
     <button className=" px-3   flex items-center justify-between text-white text-[14px] h-[52px] w-full max-w-[400px] rounded-lg bg-darkgrey">
