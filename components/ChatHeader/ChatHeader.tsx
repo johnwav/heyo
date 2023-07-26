@@ -1,3 +1,4 @@
+import { IChatHeaderProps } from "@/types/types";
 import Image from "next/image";
 
 export default function ChatHeader({firstName, lastName, status, profileImage}: IChatHeaderProps) {

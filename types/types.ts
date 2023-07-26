@@ -1,10 +1,10 @@
 // interface for buttons
-interface IButtonProps {
+export interface IButtonProps {
   text: string;
 }
 
 // chat header component
-interface IChatHeaderProps {
+export interface IChatHeaderProps {
   firstName: string;
   lastName: string;
   status?: string;
@@ -13,7 +13,7 @@ interface IChatHeaderProps {
 
 // chat card component
 
-interface IChatCardProps {
+export interface IChatCardProps {
   firstName: string;
   lastName: string;
   status?: string;
@@ -22,3 +22,8 @@ interface IChatCardProps {
   time: string;
   lastMessage: string;
 }
+
+export type TSignInInputs = {
+  email: string;
+  password: string;
+};

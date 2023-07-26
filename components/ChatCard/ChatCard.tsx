@@ -1,3 +1,4 @@
+import { IChatCardProps } from "@/types/types";
 import Image from "next/image";
 
 export default function ChatCard({
