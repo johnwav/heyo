@@ -27,7 +27,7 @@ export default function Login() {
         className="hidden md:block z-20 absolute max-w-[450px] max-h-[884px] w-[22%] h-[auto] bottom-0 left-[-15px]"
         alt=""
       />
-      <div className="z-20 absolute left-[50%] translate-x-[-50%] translate-y-[35%] ">
+      <div className="z-20 absolute left-[50%] translate-x-[-50%] translate-y-[30%] ">
         <SignInComponent />
       </div>
     </main>

@@ -2,11 +2,7 @@
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { SignIn } from "../Action/Action";
 import GoogleSignIn from "../Google/Google";
-
-type SignInInputs = {
-  email: string;
-  password: string;
-};
+import { TSignInInputs } from "@/types/types";
 
 export default function SignInComponent() {
   const {
@@ -14,7 +10,7 @@ export default function SignInComponent() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<SignInInputs>();
+  } = useForm<TSignInInputs>();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
   // console.log(watch("email"));
