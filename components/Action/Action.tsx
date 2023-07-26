@@ -1,3 +1,5 @@
+import { IButtonProps } from "@/types/types";
+
 export function SignIn({ text }: IButtonProps) {
   return (
     <button type="submit" className="text-white text-[14px] h-[52px] w-full max-w-[400px] rounded-lg bg-green">
