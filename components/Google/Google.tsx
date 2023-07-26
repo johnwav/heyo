@@ -1,6 +1,6 @@
 export  default function GoogleSignIn({ text }: IButtonProps) {
   return (
-    <button className=" px-3   flex items-center justify-between text-white text-[20px] h-[52px] w-full max-w-[400px] rounded-lg bg-darkgrey">
+    <button className=" px-3   flex items-center justify-between text-white text-[14px] h-[52px] w-full max-w-[400px] rounded-lg bg-darkgrey">
       <img className="w-[35px] h-[35px]" src="/assets/google.png" alt="" />
       {text}
       <div>

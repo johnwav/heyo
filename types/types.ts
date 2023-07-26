@@ -22,3 +22,8 @@ interface IChatCardProps {
   time: string;
   lastMessage: string;
 }
+
+export type SignInInputs = {
+  email: string;
+  password: string;
+};

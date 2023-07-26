@@ -57,7 +57,7 @@ export default function SearchChats() {
       >
         <input
           placeholder="Search"
-          className=" px-[20px] outline-none focus:outline-none"
+          className=" px-[20px] outline-none focus:outline-none w-full"
           type="text"
           onChange={(event) => setQuery(event.target.value)}
           value={query}
