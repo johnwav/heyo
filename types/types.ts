@@ -27,3 +27,9 @@ export type TSignInInputs = {
   email: string;
   password: string;
 };
+export type TSignUpInputs = {
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
+};
