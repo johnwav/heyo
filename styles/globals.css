@@ -17,8 +17,7 @@ body,
 html {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  width: 100vw;
+
 }
 
 p,
@@ -53,6 +52,7 @@ img {
 
 main {
   min-height: 100vh;
+  margin: 0 auto;
   max-width: var(--max-width);
   font-family: var(--font-poppins);
 }
