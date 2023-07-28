@@ -15,7 +15,7 @@ export default function AuthLayout({
     <main className="bg-[#0000000F] z-0 relative overflow-hidden">
       <div className="bg-appTexture z-10 bg-cover absolute w-full h-full"></div>
 
-      <div className="w-full mt-[35px] bg-transparent z-20 absolute flex items-center justify-center ">
+      <div className="w-full mt-[20px] bg-transparent z-20 absolute flex items-center justify-center ">
         <Image
           src="/assets/logo.png"
           alt="Heyo Logo"
@@ -24,7 +24,7 @@ export default function AuthLayout({
           layout="fixed"
         />
       </div>
-      <div className="hidden md:block z-20 bg-contain bg-no-repeat absolute left-[-20px] bottom-[-20px] max-w-[774px] w-[45vw] h-[auto]">
+      <div className="hidden md:block z-20 bg-contain bg-no-repeat absolute left-[-70px] bottom-[-20px] max-w-[774px] w-[45vw] h-[auto]">
         <img
           src="/assets/left-svg.png"
           alt="Left SVG"
@@ -36,7 +36,7 @@ export default function AuthLayout({
         className="hidden md:block z-20 absolute max-w-[450px] max-h-[884px] w-[22%] h-[auto] bottom-0 left-[-15px]"
         alt=""
       />
-      <div className="z-20 absolute left-[50%] translate-x-[-50%] translate-y-[30%] ">
+      <div className="z-20 absolute left-[50%] translate-x-[-50%] translate-y-[25%] ">
         {children}
       </div>
     </main>
