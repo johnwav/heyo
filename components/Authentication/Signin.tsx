@@ -29,7 +29,7 @@ export default function SignInComponent() {
         <label className="w-full flex flex-col">
           Email
           <input
-            className="rounded-md p-3 border-green border-solid border-[1px] focus:outline-none"
+            className="rounded-md p-[9px] border-green border-solid border-[1px] focus:outline-none"
             {...register("email", { required: true })}
           />
           {/* errors will return when field validation fails  */}
@@ -41,20 +41,20 @@ export default function SignInComponent() {
         </label>
 
         {/* include validation with required or other standard HTML validation rules */}
-        <label className="w-full flex flex-col">
+
+        {/* <label className="w-full flex flex-col">
           Password
           <input
             type="password"
-            className="rounded-md p-3 border-green border-solid border-[1px] focus:outline-none"
+            className="rounded-md p-[9px] border-green border-solid border-[1px] focus:outline-none"
             {...register("password", { required: true })}
           />
-          {/* errors will return when field validation fails  */}
           {errors.password && (
             <span className="text-[red] text-[12px]">
               Please enter your password
             </span>
           )}
-        </label>
+        </label> */}
 
         <p className="text-[12px]">
           Need help sigining in?{" "}
