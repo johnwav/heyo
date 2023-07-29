@@ -31,7 +31,7 @@ export default function SignUpComponent() {
   // console.log(watch("password"));
 
   return (
-    <div className="relative max-w-[507px] max-h-[897px] w-[26vw] min-w-[350px] h-[65vh] min-h-[630px] rounded-2xl bg-white">
+    <div className="relative max-w-[507px] max-h-[897px] w-[26vw] min-w-[350px] h-[65vh] min-h-[570px] rounded-2xl bg-white">
       <div className="z-20 absolute bg-Smask bg-cover w-full h-full rounded-2xl">
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
       </div>
@@ -43,7 +43,7 @@ export default function SignUpComponent() {
         <label className="w-full flex flex-col">
           Email
           <input
-            className="rounded-md p-3 border-green border-solid border-[1px] focus:outline-none"
+            className="rounded-md p-[9px] border-green border-solid border-[1px] focus:outline-none"
             {...register("email", { required: true })}
           />
           {/* errors will return when field validation fails  */}
@@ -57,7 +57,7 @@ export default function SignUpComponent() {
         <label className="w-full flex flex-col">
           Username
           <input
-            className="rounded-md p-3 border-green border-solid border-[1px] focus:outline-none"
+            className="rounded-md p-[9px]  border-green border-solid border-[1px] focus:outline-none"
             {...register("username", { required: true })}
           />
           {/* errors will return when field validation fails  */}
@@ -73,7 +73,7 @@ export default function SignUpComponent() {
           Password
           <input
             type="password"
-            className="rounded-md p-3 border-green border-solid border-[1px] focus:outline-none"
+            className="rounded-md p-[9px]  border-green border-solid border-[1px] focus:outline-none"
             {...register("password", { required: true })}
           />
           {/* errors will return when field validation fails  */}
@@ -88,7 +88,7 @@ export default function SignUpComponent() {
           Confirm Password
           <input
             type="password"
-            className="rounded-md p-3 border-green border-solid border-[1px] focus:outline-none"
+            className="rounded-md p-[9px]  border-green border-solid border-[1px] focus:outline-none"
             {...register("confirmPassword", { required: true })}
           />
           {/* errors will return when field validation fails  */}

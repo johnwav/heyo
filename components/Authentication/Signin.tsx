@@ -3,6 +3,7 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { SignIn } from "../Action/Action";
 import GoogleSignIn from "../Google/Google";
 import { TSignInInputs } from "@/types/types";
+import { useEffect, useState } from "react";
 
 export default function SignInComponent() {
   const {
@@ -12,15 +13,24 @@ export default function SignInComponent() {
     formState: { errors },
   } = useForm<TSignInInputs>();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
-  // console.log(watch("email"));
-  // console.log(watch("password"));
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const res = await fetch("/api/signin", {
+      method: "POST",
+      body: JSON.stringify({
+        email: data.email,
+        username: data.username,
+      })
+    });
+
+    console.log(data)
+  };
 
   return (
     <div className="relative max-w-[507px] max-h-[697px] w-[26vw] min-w-[350px] h-[65vh] min-h-[500px] rounded-2xl bg-white">
       <div className="z-20 absolute bg-Smask bg-cover w-full h-full rounded-2xl">
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
       </div>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="z-20 absolute flex gap-3 items-center justify-center flex-col w-full h-full rounded-2xl px-8 text-green"
@@ -42,19 +52,19 @@ export default function SignInComponent() {
 
         {/* include validation with required or other standard HTML validation rules */}
 
-        {/* <label className="w-full flex flex-col">
-          Password
+        <label className="w-full flex flex-col">
+          Username
           <input
-            type="password"
+            type="username"
             className="rounded-md p-[9px] border-green border-solid border-[1px] focus:outline-none"
-            {...register("password", { required: true })}
+            {...register("username", { required: true })}
           />
-          {errors.password && (
+          {errors.username && (
             <span className="text-[red] text-[12px]">
-              Please enter your password
+              Please enter your Username
             </span>
           )}
-        </label> */}
+        </label>
 
         <p className="text-[12px]">
           Need help sigining in?{" "}
