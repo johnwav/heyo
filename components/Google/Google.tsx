@@ -3,7 +3,7 @@ import { IButtonProps } from "@/types/types";
 /// to do - signup component not showing
 export  default function GoogleSignIn({ text }: IButtonProps) {
   return (
-    <button type="button" className=" px-3   flex items-center justify-between text-white text-[14px] h-[52px] w-full max-w-[400px] rounded-lg bg-darkgrey">
+    <button type="button" className=" px-3 flex items-center justify-between text-white text-[14px] h-[42px] w-full max-w-[400px] rounded-lg bg-darkgrey">
       <img className="w-[35px] h-[35px]" src="/assets/google.png" alt="" />
       {text}
       <div>
