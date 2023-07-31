@@ -13,9 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      {/* @ts-ignore */}
-      <body className="max-w-[1920px] mx-auto">{children}</body>
-    </html>
+    <Provider>
+      <html lang="en">
+        {/* @ts-ignore */}
+        <body className="max-w-[1920px] mx-auto">{children}</body>
+      </html>
+    </Provider>
   );
 }
