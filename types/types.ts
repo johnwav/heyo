@@ -1,6 +1,7 @@
 // interface for buttons
 export interface IButtonProps {
   text: string;
+  loading?: boolean;
 }
 
 // chat header component
