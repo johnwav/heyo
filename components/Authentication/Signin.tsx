@@ -3,7 +3,11 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { SignIn } from "../Action/Action";
 import GoogleSignIn from "../Google/Google";
 import { TSignInInputs } from "@/types/types";
-import { useEffect, useState } from "react";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Alert from "../Alert/Alert";
+import Link from "next/link";
 
 export default function SignInComponent() {
   const {
@@ -13,16 +17,18 @@ export default function SignInComponent() {
     formState: { errors },
   } = useForm<TSignInInputs>();
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const res = await fetch("/api/signin", {
-      method: "POST",
-      body: JSON.stringify({
-        email: data.email,
-        username: data.username,
-      })
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<FieldValues> = async ({ email, password }) => {
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
     });
 
-    console.log(data)
+    if (res?.error) return setError(res.error);
+    router.replace("/chat");
   };
 
   return (
@@ -35,6 +41,12 @@ export default function SignInComponent() {
         onSubmit={handleSubmit(onSubmit)}
         className="z-20 absolute flex gap-3 items-center justify-center flex-col w-full h-full rounded-2xl px-8 text-green"
       >
+        {error && (
+          <div className="mb-3">
+            <Alert value={error} />
+          </div>
+        )}
+
         {/* register your input into the hook by invoking the "register" function */}
         <label className="w-full flex flex-col">
           Email
@@ -53,15 +65,15 @@ export default function SignInComponent() {
         {/* include validation with required or other standard HTML validation rules */}
 
         <label className="w-full flex flex-col">
-          Username
+          Password
           <input
-            type="username"
+            type="password"
             className="rounded-md p-[9px] border-green border-solid border-[1px] focus:outline-none"
-            {...register("username", { required: true })}
+            {...register("password", { required: true })}
           />
-          {errors.username && (
+          {errors.password && (
             <span className="text-[red] text-[12px]">
-              Please enter your Username
+              Please enter your Password
             </span>
           )}
         </label>
@@ -75,7 +87,7 @@ export default function SignInComponent() {
         <GoogleSignIn text="Continue with Google instead" />
 
         <p className="text-[12px]">
-          New to Heyo? <strong className="text-[12px]">Sign Up</strong>
+          New to Heyo? <strong className="text-[12px]"><Link href={"/auth/signup"}>Sign in</Link></strong>
         </p>
       </form>
     </div>
