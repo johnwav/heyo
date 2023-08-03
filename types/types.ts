@@ -41,3 +41,7 @@ export interface IUserProfile {
   username: string;
   password: string;
 }
+
+export interface IAlertProps {
+  value: string
+}
