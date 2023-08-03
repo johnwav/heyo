@@ -32,20 +32,35 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
+
   callbacks: {
     jwt(params: any) {
       if (params.user) {
         params.token.id = params.user.id;
+        params.token.username = params.user.username;
       }
       return params.token;
     },
     session({ session, token }) {
       if (session.user) {
-        (session.user as { id: string }).id = token.id as string;
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            id: token.id as string,
+            username: token.username as string,
+          },
+        };
       }
       return session;
     },
   },
+
+
+
+
+
 };
 
 const authHandler = NextAuth(authOptions);
