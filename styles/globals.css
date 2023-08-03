@@ -17,7 +17,6 @@ body,
 html {
   margin: 0;
   padding: 0;
-
 }
 
 p,
@@ -25,7 +24,7 @@ span,
 strong,
 div,
 button {
-  font-size: 14px ;
+  font-size: 14px;
 }
 
 img {
@@ -48,6 +47,10 @@ img {
   --black: #2d2d2d;
   --lightgrey: #828181;
   --darkgrey: #676666;
+
+  /* scrollbar */
+  --scrollbar-color: #7a98f9; /* Replace with the desired color */
+  --scrollbar-height: 12px; /* Replace with the desired height */
 }
 
 main {
@@ -55,4 +58,27 @@ main {
   margin: 0 auto;
   max-width: var(--max-width);
   font-family: var(--font-poppins);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  padding: 100px;
+  /* height: 120px; */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:var(--blue);
+  height: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
