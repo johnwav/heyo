@@ -6,6 +6,7 @@ import SearchChats from "@/components/SearchChats/SearchChats";
 import GoogleSignIn from "@/components/Google/Google";
 import CurrentUser from "@/components/CurrentUser/CurrentUser";
 import SignInComponent from "@/components/Authentication/Signin";
+import SignUpComponent from "@/components/Authentication/Signup";
 
 export default function Test() {
   return (
@@ -31,6 +32,7 @@ export default function Test() {
       <SearchChats />
       <CurrentUser firstName="Mason" lastName="Tyrell" profileImage="" />
       <SignInComponent />
+      <SignUpComponent />
     </div>
   );
 }

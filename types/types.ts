@@ -1,6 +1,7 @@
 // interface for buttons
 export interface IButtonProps {
   text: string;
+  loading?: boolean;
 }
 
 // chat header component
@@ -27,3 +28,20 @@ export type TSignInInputs = {
   email: string;
   password: string;
 };
+
+export type TSignUpInputs = {
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
+};
+
+export interface IUserProfile {
+  email: string;
+  username: string;
+  password: string;
+}
+
+export interface IAlertProps {
+  value: string
+}

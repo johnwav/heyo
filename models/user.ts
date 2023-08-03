@@ -1,4 +1,9 @@
 import { Schema, model, models } from "mongoose";
+import bcrypt from "bcrypt";
+
+interface Methods {
+  comparePassword(password: string): Promise<boolean>;
+}
 
 const UserSchema = new Schema({
   email: {
@@ -14,6 +19,10 @@ const UserSchema = new Schema({
       "Username invalid, it should contain alphanumeric letters and be unique!",
     ],
   },
+  password: {
+    type: String,
+    required: true,
+  },
   image: {
     type: String,
   },
@@ -23,9 +32,31 @@ const UserSchema = new Schema({
   },
   lastSeen: {
     type: Date,
+    default: new Date(),
   },
 });
 
+//Hash the password before saving
+
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    throw error;
+  }
+});
+
+//compare password method
+UserSchema.methods.comparePassword = async function (password: string) {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (error) {
+    throw error;
+  }
+};
 const User = models.User || model("User", UserSchema);
 
 export default User;
