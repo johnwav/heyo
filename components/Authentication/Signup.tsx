@@ -3,6 +3,9 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { SignIn } from "../Action/Action";
 import GoogleSignIn from "../Google/Google";
 import { TSignUpInputs } from "@/types/types";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignUpComponent() {
   const {
@@ -12,8 +15,11 @@ export default function SignUpComponent() {
     setError,
     formState: { errors },
   } = useForm<TSignUpInputs>();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setLoading(true);
     if (data.password !== data.confirmPassword) {
       setError("confirmPassword", {
         type: "manual",
@@ -25,8 +31,28 @@ export default function SignUpComponent() {
       });
       return;
     }
-    console.log(data);
+    const userInfo = {
+      email: data.email,
+      password: data.password,
+      username: data.username,
+    };
+    console.log(userInfo);
+    try {
+      const response = await fetch("/api/auth/users", {
+        method: "POST",
+        body: JSON.stringify(userInfo),
+      });
+      const result = await response.json();
+      setLoading(false);
+      router.replace("./auth/login");
+      console.log(result);
+    } catch (error) {
+      console.log("error creating account", error);
+    } finally {
+      setLoading(false);
+    }
   };
+
   // console.log(watch("email"));
   // console.log(watch("password"));
 
@@ -99,11 +125,11 @@ export default function SignUpComponent() {
           )}
         </label>
 
-        <SignIn text="Sign in" />
+        <SignIn loading={loading} text="Sign in" />
         <GoogleSignIn text="Continue with Google instead" />
 
         <p className="text-[12px]">
-          Have an account? <strong className="text-[12px]">Sign In</strong>
+          Have an account? <strong className="text-[12px]"><Link href={"/auth/login"}>Sign Up</Link></strong>
         </p>
       </form>
     </div>
