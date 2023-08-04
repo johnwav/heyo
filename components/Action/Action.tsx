@@ -1,4 +1,6 @@
 import { IButtonProps } from "@/types/types";
+import { useState } from "react";
+import { PulseLoader } from "react-spinners";
 
 export function SignIn({ text, loading }: IButtonProps) {
   return (
@@ -8,7 +10,7 @@ export function SignIn({ text, loading }: IButtonProps) {
       style={{ opacity: loading ? 0.5 : 1 }}
       className="text-white text-[14px] h-[42px] w-full max-w-[400px] rounded-lg bg-green"
     >
-      {text}
+      {loading ? <PulseLoader /> : text}
     </button>
   );
 }
