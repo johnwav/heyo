@@ -7,10 +7,20 @@ import SearchChats from "../../../components/SearchChats/SearchChats";
 import ChatCard from "@/components/ChatCard/ChatCard";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { userStore } from "@/store/userStore";
+// import { Provider } from "react-redux";
+import type { RootState } from "@/store/userStore";
+import { useSelector, useDispatch } from "react-redux";
+import { storeUserAction } from "@/features/user/userSlice";
 
 export default function Chat() {
   const { data: session } = useSession();
-  const [username, setUsername] = useState("")
+  const userData = useSelector((state: RootState) => state.user);
+  const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
+
+  // const [user, setUser] = useState("");
 
   const handleSignOut = async () => {
     await signOut();
@@ -29,10 +39,13 @@ export default function Chat() {
           },
           body: JSON.stringify({ sessionId }),
         });
-
         if (response.ok) {
           const user = await response.json();
-          setUsername(user.username);
+          // setUser(user);
+          console.log("storing user data");
+          await dispatch(storeUserAction(user));
+          console.log("user data stored successfully", user);
+          setLoading(false);
           // console.log(user);
         } else {
           console.error("Error fetching user data:", response.statusText);
@@ -44,9 +57,9 @@ export default function Chat() {
   };
 
   useEffect(() => {
-   getuser();
-  });
-
+    getuser();
+    console.log("user data loaded", userData);
+  }, []);
 
   // console.log(session?.user);
 
@@ -59,9 +72,15 @@ export default function Chat() {
 
   return (
     <div style={divStyle}>
+      {loading && "loading"}
       <div className="flex flex-col gap-[1.5em]">
         <div className="">
-          <CurrentUser firstName={username} lastName="Tyrell" profileImage="" />
+          {/* @ts-ignore */}
+          <CurrentUser
+            firstName={userData.username}
+            lastName="Tyrell"
+            profileImage=""
+          />
         </div>
         <div className="">
           <SearchChats />
