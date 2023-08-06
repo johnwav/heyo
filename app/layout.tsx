@@ -1,9 +1,7 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import Provider from "../components/provider";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import AuthProvider from "../components/provider";
+import {Storerovider} from "@/components/storeProvider";
 
 export const metadata: Metadata = {
   title: "Heyo Chat",
@@ -16,11 +14,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Provider>
-      <html lang="en">
-        {/* @ts-ignore */}
-        <body className="max-w-[1920px] mx-auto">{children}</body>
-      </html>
-    </Provider>
+    <Storerovider>
+      <AuthProvider>
+        <html lang="en">
+          {/* @ts-ignore */}
+          <body className="max-w-[1920px] mx-auto">{children}</body>
+        </html>
+      </AuthProvider>
+    </Storerovider>
   );
 }
