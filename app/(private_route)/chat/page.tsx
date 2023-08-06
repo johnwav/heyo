@@ -7,61 +7,26 @@ import SearchChats from "../../../components/SearchChats/SearchChats";
 import ChatCard from "@/components/ChatCard/ChatCard";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { userStore } from "@/store/userStore";
-// import { Provider } from "react-redux";
 import type { RootState } from "@/store/userStore";
 import { useSelector, useDispatch } from "react-redux";
-import { storeUserAction } from "@/features/user/userSlice";
+import { getuser } from "@/features/user/getUser";
 
 export default function Chat() {
   const { data: session } = useSession();
   const userData = useSelector((state: RootState) => state.user);
   const [loading, setLoading] = useState(true);
-
   const dispatch = useDispatch();
-
-  // const [user, setUser] = useState("");
-
   const handleSignOut = async () => {
     await signOut();
   };
-  // console.log(session?.user.id)
-
-  const getuser = async () => {
-    if (session) {
-      //@ts-ignore
-      const sessionId = session?.user?.id; // Get the session ID
-      try {
-        const response = await fetch("/api/getuser", {
-          method: "POST", // Use the appropriate HTTP method (POST, GET, etc.)
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ sessionId }),
-        });
-        if (response.ok) {
-          const user = await response.json();
-          // setUser(user);
-          console.log("storing user data");
-          await dispatch(storeUserAction(user));
-          console.log("user data stored successfully", user);
-          setLoading(false);
-          // console.log(user);
-        } else {
-          console.error("Error fetching user data:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    }
+  const handleSignIn = async () => {
+    session && getuser(session, dispatch).then(() => setLoading(false));
+    console.log("init user data loaded from store", userData);
   };
 
   useEffect(() => {
-    getuser();
-    console.log("user data loaded", userData);
-  }, []);
-
-  // console.log(session?.user);
+    handleSignIn();
+  }, [session]);
 
   const divStyle = {
     display: "grid",
@@ -75,7 +40,6 @@ export default function Chat() {
       {loading && "loading"}
       <div className="flex flex-col gap-[1.5em]">
         <div className="">
-          {/* @ts-ignore */}
           <CurrentUser
             firstName={userData.username}
             lastName="Tyrell"
