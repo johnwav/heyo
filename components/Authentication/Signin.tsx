@@ -9,25 +9,32 @@ import { useRouter } from "next/navigation";
 import Alert from "../Alert/Alert";
 import Link from "next/link";
 
+interface Props {
+  loading: boolean;
+}
+
 export default function SignInComponent() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<TSignInInputs>();
 
   const [error, setError] = useState("");
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ email, password }) => {
+    setLoading(true);
     const res = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
-
-    if (res?.error) return setError(res.error);
+    if (res?.error) {
+      setLoading(false);
+      return setError(res.error);
+    }
     router.replace("/chat");
   };
 
@@ -83,11 +90,14 @@ export default function SignInComponent() {
           <strong className="text-[12px]">Click here</strong>
         </p>
 
-        <SignIn text="Sign in" />
+        <SignIn loading={loading} text="Sign in" />
         <GoogleSignIn text="Continue with Google instead" />
 
         <p className="text-[12px]">
-          New to Heyo? <strong className="text-[12px]"><Link href={"/auth/signup"}>Sign in</Link></strong>
+          New to Heyo?{" "}
+          <strong className="text-[12px]">
+            <Link href={"/auth/signup"}>Sign in</Link>
+          </strong>
         </p>
       </form>
     </div>
