@@ -10,16 +10,9 @@ export interface userState {
   __v: string;
   _id: string;
 }
+//@ts-ignore
+const initialState: userState = {};
 
-const initialState: userState = {
-  email: "init",
-  lastSeen: "init",
-  online: false,
-  password: "init",
-  username: "init",
-  __v: "",
-  _id: "",
-};
 
 export const userSlice = createSlice({
   name: "user",
@@ -39,7 +32,7 @@ export const userSlice = createSlice({
     //   state.value += action.payload;
     // },
     storeUserAction: (state, action: PayloadAction<userState>) => {
-      return {...state, ...action.payload}
+      return { ...state, ...action.payload };
     },
   },
 });
