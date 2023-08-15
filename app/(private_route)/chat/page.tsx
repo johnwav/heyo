@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import type { RootState } from "@/store/userStore";
 import { useSelector, useDispatch } from "react-redux";
 import { getuser } from "@/features/user/getUser";
+import Modal from "react-modal"
 
 export default function Chat() {
   const { data: session } = useSession();
