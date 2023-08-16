@@ -10,6 +10,7 @@ export interface IChatHeaderProps {
   lastName: string;
   status?: string;
   profileImage: string;
+  sendOpenModal?: (val:boolean) => void
 }
 
 // chat card component

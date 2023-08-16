@@ -10,11 +10,13 @@ import type { RootState } from "@/store/userStore";
 import { useSelector, useDispatch } from "react-redux";
 import { getuser } from "@/features/user/getUser";
 import ChatArea from "@/components/ChatArea/ChatArea";
-// import Modal from "react-modal"
+//@ts-ignore
+import Modal from "react-modal";
 
 export default function Chat() {
   const { data: session } = useSession();
   const userData = useSelector((state: RootState) => state.user);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const handleSignOut = async () => {
@@ -34,7 +36,25 @@ export default function Chat() {
     gridTemplateColumns: "1fr 1.5fr",
     padding: "1.5em",
     gap: "1.5em",
-    height: "100%"
+    height: "100%",
+  };
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "0px",
+    },
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+  const openModal = (val: boolean) => {
+    setModalIsOpen(val);
   };
 
   return (
@@ -46,6 +66,7 @@ export default function Chat() {
             firstName={userData.username}
             lastName="Tyrell"
             profileImage=""
+            sendOpenModal={openModal}
           />
         </div>
         <div className="">
@@ -116,10 +137,19 @@ export default function Chat() {
           profileImage=""
         />
         <div className="w-full h-full">
-        <ChatArea />
+          <ChatArea />
         </div>
       </div>
       <button onClick={handleSignOut}>signOut</button>
+      <Modal
+        isOpen={modalIsOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        // contentLabel="Example Modal"
+      >
+        hey
+      </Modal>
     </div>
   );
 }
