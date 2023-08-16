@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 import type { RootState } from "@/store/userStore";
 import { useSelector, useDispatch } from "react-redux";
 import { getuser } from "@/features/user/getUser";
-import Modal from "react-modal"
+import ChatArea from "@/components/ChatArea/ChatArea";
+// import Modal from "react-modal"
 
 export default function Chat() {
   const { data: session } = useSession();
@@ -114,7 +115,7 @@ export default function Chat() {
           status="online"
           profileImage=""
         />
-        <ChatTextFeild />
+        <ChatArea />
       </div>
       <button onClick={handleSignOut}>signOut</button>
     </div>
