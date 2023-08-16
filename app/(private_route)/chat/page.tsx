@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 import type { RootState } from "@/store/userStore";
 import { useSelector, useDispatch } from "react-redux";
 import { getuser } from "@/features/user/getUser";
-import Modal from "react-modal"
+import ChatArea from "@/components/ChatArea/ChatArea";
+// import Modal from "react-modal"
 
 export default function Chat() {
   const { data: session } = useSession();
@@ -39,7 +40,7 @@ export default function Chat() {
   return (
     <div style={divStyle}>
       {loading && "loading"}
-      <div className="flex flex-col gap-[1.5em]">
+      <div className="flex flex-col gap-[1.5em] drop-shadow-md">
         <div className="">
           <CurrentUser
             firstName={userData.username}
@@ -107,14 +108,16 @@ export default function Chat() {
           />
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col drop-shadow-md">
         <ChatHeader
           firstName="Christiana"
           lastName="Beth"
           status="online"
           profileImage=""
         />
-        <ChatTextFeild />
+        <div className="w-full h-full">
+        <ChatArea />
+        </div>
       </div>
       <button onClick={handleSignOut}>signOut</button>
     </div>
