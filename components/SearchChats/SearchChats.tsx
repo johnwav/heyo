@@ -9,7 +9,7 @@ export default function SearchChats() {
   };
 
   return (
-    <div className="flex items-center gap-2 px-[20px] justify-between w-full h-[67px] bg-white max-w-[635px] rounded-[34px]">
+    <div className="flex items-center gap-2 px-[20px] justify-between w-full h-[67px] bg-white  rounded-[34px]">
       {/* search icon */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
