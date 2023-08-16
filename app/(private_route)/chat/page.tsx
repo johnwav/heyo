@@ -1,6 +1,5 @@
 "use client";
 import ChatHeader from "@/components/ChatHeader/ChatHeader";
-import ChatTextFeild from "@/components/ChatTextFeild/ChatTextFeild";
 import CurrentUser from "@/components/CurrentUser/CurrentUser";
 import { signOut } from "next-auth/react";
 import SearchChats from "../../../components/SearchChats/SearchChats";
@@ -35,6 +34,7 @@ export default function Chat() {
     gridTemplateColumns: "1fr 1.5fr",
     padding: "1.5em",
     gap: "1.5em",
+    height: "100%"
   };
 
   return (
@@ -51,7 +51,7 @@ export default function Chat() {
         <div className="">
           <SearchChats />
         </div>
-        <div className="scroll w-full flex-grow bg-white rounded-[30px] h-[530px] max-h-[750px] p-[1.5em] overflow-scroll ">
+        <div className="scroll w-full flex-grow bg-white rounded-[30px] p-[1.5em] overflow-scroll ">
           <ChatCard
             firstName="Christiana"
             lastName="Beth"

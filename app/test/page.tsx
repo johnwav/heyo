@@ -10,7 +10,7 @@ import SignUpComponent from "@/components/Authentication/Signup";
 
 export default function Test() {
   return (
-    <div className="max-w-[1440px] m-auto flex flex-col gap-8 items-center justify-center border p-2 bg-teal-100">
+    <div className="max-w-[1920px] m-auto flex flex-col gap-8 items-center justify-center border p-2 bg-teal-100">
       <SignIn text="Sign in" />
       <GoogleSignIn text="Continue with Google Instead" />
       <ChatHeader

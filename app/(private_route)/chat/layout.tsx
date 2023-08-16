@@ -12,7 +12,7 @@ export default function ChatLayout({
 }) {
   return (
     <section className="m-auto h-screen w-full bg-background">
-      <div className="max-w-[1440px] m-auto">{children}</div>
+      <div className="h-screen m-auto">{children}</div>
     </section>
   );
 }
