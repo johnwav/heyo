@@ -1,7 +1,6 @@
 "use client";
 import ChatHeader from "@/components/ChatHeader/ChatHeader";
 import CurrentUser from "@/components/CurrentUser/CurrentUser";
-import { signOut } from "next-auth/react";
 import SearchChats from "../../../components/SearchChats/SearchChats";
 import ChatCard from "@/components/ChatCard/ChatCard";
 import { useSession } from "next-auth/react";
@@ -10,6 +9,7 @@ import type { RootState } from "@/store/userStore";
 import { useSelector, useDispatch } from "react-redux";
 import { getuser } from "@/features/user/getUser";
 import ChatArea from "@/components/ChatArea/ChatArea";
+import EditProfile from "@/components/EditProfile/EditProfile";
 //@ts-ignore
 import Modal from "react-modal";
 
@@ -19,9 +19,7 @@ export default function Chat() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const handleSignOut = async () => {
-    await signOut();
-  };
+  
   const handleSignIn = async () => {
     session && getuser(session, dispatch).then(() => setLoading(false));
     console.log("init user data loaded from store", userData);
@@ -47,6 +45,9 @@ export default function Chat() {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       padding: "0px",
+      outline: "none",
+      border: "none"
+
     },
   };
 
@@ -63,8 +64,7 @@ export default function Chat() {
       <div className="flex flex-col gap-[1.5em] drop-shadow-md">
         <div className="">
           <CurrentUser
-            firstName={userData.username}
-            lastName="Tyrell"
+            username={userData.username}
             profileImage=""
             sendOpenModal={openModal}
           />
@@ -131,8 +131,7 @@ export default function Chat() {
       </div>
       <div className="flex flex-col drop-shadow-md">
         <ChatHeader
-          firstName="Christiana"
-          lastName="Beth"
+          username="Christiana"
           status="online"
           profileImage=""
         />
@@ -140,7 +139,7 @@ export default function Chat() {
           <ChatArea />
         </div>
       </div>
-      <button onClick={handleSignOut}>signOut</button>
+      {/* <button onClick={}>signOut</button> */}
       <Modal
         isOpen={modalIsOpen}
         // onAfterOpen={afterOpenModal}
@@ -148,7 +147,7 @@ export default function Chat() {
         style={customStyles}
         // contentLabel="Example Modal"
       >
-        hey
+        <EditProfile username={userData.username} about={userData.about} />
       </Modal>
     </div>
   );
