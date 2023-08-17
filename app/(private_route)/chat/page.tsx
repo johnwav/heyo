@@ -12,14 +12,16 @@ import ChatArea from "@/components/ChatArea/ChatArea";
 import EditProfile from "@/components/EditProfile/EditProfile";
 //@ts-ignore
 import Modal from "react-modal";
+import Loading from "@/components/Loading/Loading";
 
 export default function Chat() {
   const { data: session } = useSession();
   const userData = useSelector((state: RootState) => state.user);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const testloading = useState(true);
   const dispatch = useDispatch();
-  
+
   const handleSignIn = async () => {
     session && getuser(session, dispatch).then(() => setLoading(false));
     console.log("init user data loaded from store", userData);
@@ -46,8 +48,20 @@ export default function Chat() {
       transform: "translate(-50%, -50%)",
       padding: "0px",
       outline: "none",
-      border: "none"
-
+      border: "none",
+    },
+  };
+  const loadingstyle = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "0px",
+      outline: "none",
+      border: "none",
     },
   };
 
@@ -60,95 +74,98 @@ export default function Chat() {
 
   return (
     <div style={divStyle}>
-      {loading && "loading"}
-      <div className="flex flex-col gap-[1.5em] drop-shadow-md">
-        <div className="">
-          <CurrentUser
-            username={userData.username}
-            profileImage=""
-            sendOpenModal={openModal}
-          />
-        </div>
-        <div className="">
-          <SearchChats />
-        </div>
-        <div className="scroll w-full flex-grow bg-white rounded-[30px] p-[1.5em] overflow-scroll ">
-          <ChatCard
-            firstName="Christiana"
-            lastName="Beth"
-            status="online"
-            profileImage=""
-            lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-            time="08:05 PM"
-            typing={false}
-          />
-          <ChatCard
-            firstName="Christiana"
-            lastName="Beth"
-            status="online"
-            profileImage=""
-            lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-            time="08:05 PM"
-            typing={false}
-          />
-          <ChatCard
-            firstName="Christiana"
-            lastName="Beth"
-            status="online"
-            profileImage=""
-            lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-            time="08:05 PM"
-            typing={false}
-          />{" "}
-          <ChatCard
-            firstName="Christiana"
-            lastName="Beth"
-            status="online"
-            profileImage=""
-            lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-            time="08:05 PM"
-            typing={false}
-          />{" "}
-          <ChatCard
-            firstName="Christiana"
-            lastName="Beth"
-            status="online"
-            profileImage=""
-            lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-            time="08:05 PM"
-            typing={false}
-          />
-          <ChatCard
-            firstName="Christiana"
-            lastName="Beth"
-            status="online"
-            profileImage=""
-            lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-            time="08:05 PM"
-            typing={false}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col drop-shadow-md">
-        <ChatHeader
-          username="Christiana"
-          status="online"
-          profileImage=""
-        />
-        <div className="w-full h-full">
-          <ChatArea />
-        </div>
-      </div>
-      {/* <button onClick={}>signOut</button> */}
-      <Modal
-        isOpen={modalIsOpen}
-        // onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        // contentLabel="Example Modal"
-      >
-        <EditProfile username={userData.username} about={userData.about} />
-      </Modal>
+      {loading ? (
+        <Modal isOpen={loading} onRequestClose={loading} style={customStyles}>
+          <Loading />
+        </Modal>
+      ) : (
+        <>
+          <div className="flex flex-col gap-[1.5em] drop-shadow-md">
+            <div className="">
+              <CurrentUser
+                username={userData.username}
+                profileImage=""
+                sendOpenModal={openModal}
+              />
+            </div>
+            <div className="">
+              <SearchChats />
+            </div>
+            <div className="scroll w-full flex-grow bg-white rounded-[30px] p-[1.5em] overflow-scroll ">
+              <ChatCard
+                firstName="Christiana"
+                lastName="Beth"
+                status="online"
+                profileImage=""
+                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
+                time="08:05 PM"
+                typing={false}
+              />
+              <ChatCard
+                firstName="Christiana"
+                lastName="Beth"
+                status="online"
+                profileImage=""
+                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
+                time="08:05 PM"
+                typing={false}
+              />
+              <ChatCard
+                firstName="Christiana"
+                lastName="Beth"
+                status="online"
+                profileImage=""
+                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
+                time="08:05 PM"
+                typing={false}
+              />{" "}
+              <ChatCard
+                firstName="Christiana"
+                lastName="Beth"
+                status="online"
+                profileImage=""
+                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
+                time="08:05 PM"
+                typing={false}
+              />{" "}
+              <ChatCard
+                firstName="Christiana"
+                lastName="Beth"
+                status="online"
+                profileImage=""
+                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
+                time="08:05 PM"
+                typing={false}
+              />
+              <ChatCard
+                firstName="Christiana"
+                lastName="Beth"
+                status="online"
+                profileImage=""
+                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
+                time="08:05 PM"
+                typing={false}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col drop-shadow-md">
+            <ChatHeader username="Christiana" status="online" profileImage="" />
+            <div className="w-full h-full">
+              <ChatArea />
+            </div>
+          </div>
+          {/* <button onClick={}>signOut</button> */}
+          <Modal
+            isOpen={modalIsOpen}
+            // onAfterOpen={afterOpenModal}
+            onRequestClose={closeModal}
+            style={customStyles}
+            // contentLabel="Example Modal"
+          >
+            <EditProfile username={userData.username} about={userData.about} />
+          </Modal>
+        </>
+      )}
     </div>
   );
 }
