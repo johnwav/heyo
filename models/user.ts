@@ -34,6 +34,10 @@ const UserSchema = new Schema({
     type: Date,
     default: new Date(),
   },
+  about: {
+    type: String,
+    default: "Hey, i'm using Heyo!"
+  },
 });
 
 //Hash the password before saving
