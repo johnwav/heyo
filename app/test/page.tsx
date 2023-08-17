@@ -14,8 +14,7 @@ export default function Test() {
       <SignIn text="Sign in" />
       <GoogleSignIn text="Continue with Google Instead" />
       <ChatHeader
-        firstName="Christiana"
-        lastName="Beth"
+        username="Christiana"
         status="online"
         profileImage=""
       />
@@ -30,7 +29,7 @@ export default function Test() {
         typing={false}
       />
       <SearchChats />
-      <CurrentUser firstName="Mason" lastName="Tyrell" profileImage="" />
+      <CurrentUser username="Mason"  profileImage="" />
       <SignInComponent />
       <SignUpComponent />
     </div>
