@@ -9,6 +9,7 @@ export interface userState {
   username: string;
   __v: string;
   _id: string;
+  about: string;
 }
 //@ts-ignore
 const initialState: userState = {};

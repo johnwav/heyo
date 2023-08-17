@@ -6,10 +6,10 @@ export interface IButtonProps {
 
 // chat header component
 export interface IChatHeaderProps {
-  firstName: string;
-  lastName: string;
+  username: string;
   status?: string;
   profileImage: string;
+  sendOpenModal?: (val:boolean) => void
 }
 
 // chat card component

@@ -7,9 +7,9 @@ export const POST = async (req: Request, res: Response) => {
 
     await dbConnect();
     // Find user by session ID
-
     const user = await User.findOne({ _id: sessionId });
     if (user) {
+      console.log("user from api", user)
       return new Response(JSON.stringify(user), { status: 200 });
     } else {
       return new Response("User not found", { status: 404 });
