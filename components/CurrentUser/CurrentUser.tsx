@@ -2,11 +2,12 @@ import { IChatHeaderProps } from "@/types/types";
 import Image from "next/image";
 
 export default function CurrentUser({
-  firstName,
-  lastName,
+  username,
   profileImage,
   sendOpenModal,
 }: IChatHeaderProps) {
+
+  
   const openModal = () => {
     sendOpenModal && sendOpenModal(true);
   };
@@ -24,7 +25,7 @@ export default function CurrentUser({
         className="rounded-full"
       />
       <h1 className="text-black font-[600]">
-        {firstName} {lastName}
+        @{username}
       </h1>
       <svg
         xmlns="http://www.w3.org/2000/svg"
