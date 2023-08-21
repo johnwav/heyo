@@ -14,7 +14,6 @@ export interface userState {
 //@ts-ignore
 const initialState: userState = {};
 
-
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -35,10 +34,15 @@ export const userSlice = createSlice({
     storeUserAction: (state, action: PayloadAction<userState>) => {
       return { ...state, ...action.payload };
     },
+
+    //@ts-ignore
+    updateUserAboutAction: (state, action: PayloadAction<string>) => {
+      return { ...state, about: action.payload };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { storeUserAction } = userSlice.actions;
+export const { storeUserAction, updateUserAboutAction } = userSlice.actions;
 
 export default userSlice.reducer;

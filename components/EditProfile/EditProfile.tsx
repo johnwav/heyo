@@ -1,18 +1,57 @@
+"use client";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserAboutAction } from "@/features/user/userSlice";
+import { RootState } from "@/store/userStore";
 
-export default function EditProfile({about, username}) {
+interface Props {
+  about: string;
+  username: string;
+  id: string;
+}
+
+export default function EditProfile({ about, username, }: Props) {
+  const dispatch = useDispatch();
+  const [isUpdateAboutOpen, setIsUpdateAboutOpen] = useState(false);
+  const [aboutText, setAboutText] = useState(about);
   const style = {
     width: "645px",
     height: "512px",
     display: "grid",
     gridTemplateColumns: "0.5fr 1fr",
   };
+  const {_id: sessionId} = useSelector((state: RootState) => state.user);
 
   const handleSignOut = async () => {
     await signOut();
   };
-  
+
+  //@ts-ignore
+  const updateAbout = async (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const newAbout = e.target.value;
+      dispatch(updateUserAboutAction(e.target.value));
+      try {
+        //api call with id
+        const response = await fetch("/api/updateAbout", {
+          method: "POST", // Use the appropriate HTTP method (POST, GET, etc.)
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sessionId, newAbout }),
+        });
+        setIsUpdateAboutOpen(false);
+        console.log("res from updating about", response);
+      } catch (error) {
+        console.error("failed to update about", error);
+      } finally {
+        setIsUpdateAboutOpen(false);
+      }
+    }
+  };
+
   return (
     <div style={style} className="rounded-2xl overflow-hidden">
       <div className="bg-green p-[24px] flex flex-col justify-between text-white">
@@ -20,7 +59,10 @@ export default function EditProfile({about, username}) {
           <button className="text-[16px]">Profile</button>
           <button className="text-[16px]">Settings</button>
         </div>
-        <button onClick={handleSignOut} className="flex items-center w-full pl-[27px] text-[16px]">
+        <button
+          onClick={handleSignOut}
+          className="flex items-center w-full pl-[27px] text-[16px]"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -58,7 +100,18 @@ export default function EditProfile({about, username}) {
           <div className="flex flex-col gap-[6px] w-full">
             <label className="text-[16px]">About</label>
             <button className="flex  items-center justify-between w-full">
-              <strong>{about} </strong>
+              {isUpdateAboutOpen ? (
+                <input
+                  onChange={(e) => setAboutText(e.target.value)}
+                  type="text"
+                  value={aboutText}
+                  onKeyDown={updateAbout}
+                />
+              ) : (
+                <strong onClick={() => setIsUpdateAboutOpen(true)}>
+                  {about}{" "}
+                </strong>
+              )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -84,4 +137,3 @@ export default function EditProfile({about, username}) {
     </div>
   );
 }
-

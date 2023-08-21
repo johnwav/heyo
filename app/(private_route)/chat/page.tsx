@@ -19,7 +19,6 @@ export default function Chat() {
   const userData = useSelector((state: RootState) => state.user);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const testloading = useState(true);
   const dispatch = useDispatch();
 
   const handleSignIn = async () => {
@@ -162,7 +161,7 @@ export default function Chat() {
             style={customStyles}
             // contentLabel="Example Modal"
           >
-            <EditProfile username={userData.username} about={userData.about} />
+            <EditProfile id={userData._id} username={userData.username} about={userData.about} />
           </Modal>
         </>
       )}
