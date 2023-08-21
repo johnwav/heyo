@@ -1,7 +1,14 @@
+"use client";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserAboutAction } from "@/features/user/userSlice";
 
-export default function EditProfile({about, username}) {
+export default function EditProfile({ about, username }) {
+  const dispatch = useDispatch();
+  const [isUpdateAboutOpen, setIsUpdateAboutOpen] = useState(false);
+  const [aboutText, setAboutText] = useState(about);
   const style = {
     width: "645px",
     height: "512px",
@@ -12,7 +19,20 @@ export default function EditProfile({about, username}) {
   const handleSignOut = async () => {
     await signOut();
   };
-  
+
+  const updateAbout = (e, aboutText) => {
+    if (e.key === "Enter") {
+      alert(e.target.value);
+      try {
+        dispatch(updateUserAboutAction(e.target.value));
+        
+      } catch (error) {
+      } finally {
+        setIsUpdateAboutOpen(false);
+      }
+    }
+  };
+
   return (
     <div style={style} className="rounded-2xl overflow-hidden">
       <div className="bg-green p-[24px] flex flex-col justify-between text-white">
@@ -20,7 +40,10 @@ export default function EditProfile({about, username}) {
           <button className="text-[16px]">Profile</button>
           <button className="text-[16px]">Settings</button>
         </div>
-        <button onClick={handleSignOut} className="flex items-center w-full pl-[27px] text-[16px]">
+        <button
+          onClick={handleSignOut}
+          className="flex items-center w-full pl-[27px] text-[16px]"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -58,7 +81,17 @@ export default function EditProfile({about, username}) {
           <div className="flex flex-col gap-[6px] w-full">
             <label className="text-[16px]">About</label>
             <button className="flex  items-center justify-between w-full">
-              <strong>{about} </strong>
+              {isUpdateAboutOpen ? (
+                <input
+                  onClick={() => setIsUpdateAboutOpen(true)}
+                  onChange={(e) => setAboutText(e.target.value)}
+                  type="text"
+                  value={aboutText}
+                  onKeyDown={updateAbout}
+                />
+              ) : (
+                <strong onClick={toggleAbout}>{about} </strong>
+              )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -84,4 +117,3 @@ export default function EditProfile({about, username}) {
     </div>
   );
 }
-
