@@ -4,7 +4,6 @@ import User from "@/models/user";
 export const POST = async (req: Request, res: Response) => {
   try {
     const { sessionId, newAbout } = await req.json(); // Get session ID from the request body
-    console.log(sessionId, newAbout)
     await dbConnect();
 
     const user = await User.findOneAndUpdate(
