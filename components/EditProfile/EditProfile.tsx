@@ -4,8 +4,15 @@ import Image from "next/image";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserAboutAction } from "@/features/user/userSlice";
+import { RootState } from "@/store/userStore";
 
-export default function EditProfile({ about, username }) {
+interface Props {
+  about: string;
+  username: string;
+  id: string;
+}
+
+export default function EditProfile({ about, username, }: Props) {
   const dispatch = useDispatch();
   const [isUpdateAboutOpen, setIsUpdateAboutOpen] = useState(false);
   const [aboutText, setAboutText] = useState(about);
@@ -15,18 +22,30 @@ export default function EditProfile({ about, username }) {
     display: "grid",
     gridTemplateColumns: "0.5fr 1fr",
   };
+  const {_id: sessionId} = useSelector((state: RootState) => state.user);
 
   const handleSignOut = async () => {
     await signOut();
   };
 
-  const updateAbout = (e, aboutText) => {
+  //@ts-ignore
+  const updateAbout = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      alert(e.target.value);
+      const newAbout = e.target.value;
+      dispatch(updateUserAboutAction(e.target.value));
       try {
-        dispatch(updateUserAboutAction(e.target.value));
-        
+        //api call with id
+        const response = await fetch("/api/updateAbout", {
+          method: "POST", // Use the appropriate HTTP method (POST, GET, etc.)
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sessionId, newAbout }),
+        });
+        setIsUpdateAboutOpen(false);
+        console.log("res from updating about", response);
       } catch (error) {
+        console.error("failed to update about", error);
       } finally {
         setIsUpdateAboutOpen(false);
       }
@@ -83,14 +102,15 @@ export default function EditProfile({ about, username }) {
             <button className="flex  items-center justify-between w-full">
               {isUpdateAboutOpen ? (
                 <input
-                  onClick={() => setIsUpdateAboutOpen(true)}
                   onChange={(e) => setAboutText(e.target.value)}
                   type="text"
                   value={aboutText}
                   onKeyDown={updateAbout}
                 />
               ) : (
-                <strong onClick={toggleAbout}>{about} </strong>
+                <strong onClick={() => setIsUpdateAboutOpen(true)}>
+                  {about}{" "}
+                </strong>
               )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
