@@ -23,7 +23,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  image: {
+  profileImage: {
     type: String,
   },
   online: {
