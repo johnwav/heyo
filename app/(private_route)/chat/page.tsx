@@ -13,6 +13,7 @@ import EditProfile from "@/components/EditProfile/EditProfile";
 //@ts-ignore
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
+import TestUpload from "@/components/testupload/tetstupload";
 
 export default function Chat() {
   const { data: session } = useSession();
@@ -145,6 +146,7 @@ export default function Chat() {
                 time="08:05 PM"
                 typing={false}
               />
+              <TestUpload />
             </div>
           </div>
           <div className="flex flex-col drop-shadow-md">
