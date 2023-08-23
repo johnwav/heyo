@@ -25,6 +25,7 @@ const UserSchema = new Schema({
   },
   profileImage: {
     type: String,
+    default: "https://heyochatbucket.s3.eu-north-1.amazonaws.com/default.jpg",
   },
   online: {
     type: Boolean,
@@ -36,7 +37,7 @@ const UserSchema = new Schema({
   },
   about: {
     type: String,
-    default: "Hey, i'm using Heyo!"
+    default: "Hey, i'm using Heyo!",
   },
 });
 
