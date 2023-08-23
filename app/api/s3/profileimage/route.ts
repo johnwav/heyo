@@ -1,6 +1,5 @@
 import User from "@/models/user";
 import dbConnect from "@/utils/database";
-import { useS3Upload } from "@/utils/useS3upload";
 
 export const POST = async (req: Request, res: Response) => {
   try {

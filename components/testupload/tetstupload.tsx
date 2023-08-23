@@ -1,7 +1,7 @@
 import { RootState } from "@/store/userStore";
 import { ChangeEvent, useState } from "react";
 import { useSelector } from "react-redux";
-import { useS3Upload } from "@/utils/useS3upload";
+import { S3Upload } from "@/utils/useS3upload";
 import { useDispatch } from "react-redux";
 import { updateUserProfileImageAction } from "@/features/user/userSlice";
 
@@ -20,7 +20,7 @@ export default function TestUpload() {
   const handleUpload = async () => {
     if (!file) return;
     try {
-      const result = await useS3Upload(file);
+      const result = await S3Upload(file);
       if (result?.error) return;
       if (result?.url) {
         console.log("file uploaded");

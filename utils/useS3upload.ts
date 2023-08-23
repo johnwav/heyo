@@ -15,7 +15,7 @@ const s3 = new S3({
 
 const bucketUrl = "https://heyochatbucket.s3.eu-north-1.amazonaws.com/";
 
-export const useS3Upload = async (file: File) => {
+export const S3Upload = async (file: File) => {
   if (!file) return;
   const params = {
     Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET_NAME,
