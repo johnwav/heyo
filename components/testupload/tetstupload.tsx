@@ -2,16 +2,17 @@ import { RootState } from "@/store/userStore";
 import { ChangeEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { useS3Upload } from "@/utils/useS3upload";
-import { error } from "console";
+import { useDispatch } from "react-redux";
+import { updateUserProfileImageAction } from "@/features/user/userSlice";
 
 export default function TestUpload() {
   const [file, setFile] = useState<File>();
   const [uploadingStatus, setUploadingStatus] = useState<any>();
   const [uploadedFile, setUploadedFile] = useState<string>();
+  const dispatch = useDispatch();
 
   const selectFile = (e: ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
-
     e.target.files && setFile(e.target.files[0]);
   };
   const { _id: id } = useSelector((state: RootState) => state.user);
@@ -36,6 +37,7 @@ export default function TestUpload() {
         const response = await data.json();
         console.log(response);
         setUploadedFile(result.url);
+        await dispatch(updateUserProfileImageAction(result.url));
       }
     } catch (error) {
       return error;
