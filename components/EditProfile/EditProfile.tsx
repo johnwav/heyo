@@ -1,10 +1,14 @@
 "use client";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserAboutAction } from "@/features/user/userSlice";
+import {
+  updateUserAboutAction,
+  updateUserProfileImageAction,
+} from "@/features/user/userSlice";
 import { RootState } from "@/store/userStore";
+import { S3Upload } from "@/utils/useS3upload";
 
 interface Props {
   about: string;
@@ -12,17 +16,56 @@ interface Props {
   id: string;
 }
 
-export default function EditProfile({ about, username, }: Props) {
+export default function EditProfile({ about, username }: Props) {
   const dispatch = useDispatch();
   const [isUpdateAboutOpen, setIsUpdateAboutOpen] = useState(false);
   const [aboutText, setAboutText] = useState(about);
+  const [uploadedFile, setUploadedFile] = useState<string>();
+  const [upload, setUpload] = useState(false);
+  const [file, setFile] = useState<File>();
   const style = {
     width: "645px",
     height: "512px",
     display: "grid",
     gridTemplateColumns: "0.5fr 1fr",
   };
-  const {_id: sessionId} = useSelector((state: RootState) => state.user);
+  const { _id: sessionId } = useSelector((state: RootState) => state.user);
+
+  const selectFile = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
+    e.target.files && setFile(e.target.files[0]);
+  };
+  const { _id: id, profileImage } = useSelector(
+    (state: RootState) => state.user
+  );
+
+  const handleUpload = async () => {
+    if (!file) return;
+    try {
+      const result = await S3Upload(file);
+      if (result?.error) return;
+      if (result?.url) {
+        console.log("file uploaded");
+        const sessionId = id;
+        const url = result.url;
+        const data = await fetch("/api/s3/profileimage", {
+          method: "POST", // Use the appropriate HTTP method (POST, GET, etc.)
+          headers: {
+            "Content-Type": "application/json",
+          },
+          //@ts-ignore
+          body: JSON.stringify({ sessionId, url }),
+        });
+        const response = await data.json();
+        console.log(response);
+        setUploadedFile(result.url);
+        await dispatch(updateUserProfileImageAction(result.url));
+        setUpload(false)
+      }
+    } catch (error) {
+      return error;
+    }
+  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -76,13 +119,22 @@ export default function EditProfile({ about, username, }: Props) {
         </button>
       </div>
       <div className="bg-background p-3 flex flex-col items-start pl-[44px] pt-[40px]">
-        <Image
-          src="https://sp-images.summitpost.org/1038746.jpg?auto=format&fit=max&ixlib=php-2.1.1&q=35&w=1024&s=394ed8f3158db7ef966a1b238d293e8b"
-          alt="Profile Image"
-          width={124}
-          height={124}
-          className="rounded-full"
-        />
+        <button onClick={() => setUpload((prev) => !prev)}>
+          <Image
+            src={profileImage}
+            alt="Profile Image"
+            width={124}
+            height={124}
+            className="rounded-full"
+          />
+        </button>
+        {upload && (
+            <>
+              <input type="file" onChange={(e) => selectFile(e)} />
+              <button onClick={handleUpload}>Upload</button>
+            </>
+          )}
+
         <div className="mt-[28px] flex flex-col gap-[12px] w-full">
           <button className="flex items-center justify-between w-full">
             <h1 className="font-bold text-[25px]">@{username}</h1>

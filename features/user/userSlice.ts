@@ -10,6 +10,7 @@ export interface userState {
   __v: string;
   _id: string;
   about: string;
+  profileImage: string;
 }
 //@ts-ignore
 const initialState: userState = {};
@@ -39,10 +40,13 @@ export const userSlice = createSlice({
     updateUserAboutAction: (state, action: PayloadAction<string>) => {
       return { ...state, about: action.payload };
     },
+    updateUserProfileImageAction: (state, action: PayloadAction<string>) => {
+      return { ...state, profileImage: action.payload };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { storeUserAction, updateUserAboutAction } = userSlice.actions;
+export const { storeUserAction, updateUserAboutAction, updateUserProfileImageAction } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -6,8 +6,6 @@ export default function CurrentUser({
   profileImage,
   sendOpenModal,
 }: IChatHeaderProps) {
-
-  
   const openModal = () => {
     sendOpenModal && sendOpenModal(true);
   };
@@ -18,15 +16,13 @@ export default function CurrentUser({
       className="flex items-center justify-start gap-[22px] text-[22px] w-full max-w-[635px]"
     >
       <Image
-        src="https://sp-images.summitpost.org/1038746.jpg?auto=format&fit=max&ixlib=php-2.1.1&q=35&w=1024&s=394ed8f3158db7ef966a1b238d293e8b"
+        src={profileImage}
         alt="Profile Image"
         width={72}
         height={72}
         className="rounded-full"
       />
-      <h1 className="text-black font-[600]">
-        @{username}
-      </h1>
+      <h1 className="text-black font-[600]">@{username}</h1>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 256 256"

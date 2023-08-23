@@ -13,6 +13,7 @@ import EditProfile from "@/components/EditProfile/EditProfile";
 //@ts-ignore
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
+import TestUpload from "@/components/testupload/tetstupload";
 
 export default function Chat() {
   const { data: session } = useSession();
@@ -25,7 +26,7 @@ export default function Chat() {
     session && getuser(session, dispatch).then(() => setLoading(false));
     console.log("init user data loaded from store", userData);
   };
-
+  
   useEffect(() => {
     handleSignIn();
   }, [session]);
@@ -83,7 +84,7 @@ export default function Chat() {
             <div className="">
               <CurrentUser
                 username={userData.username}
-                profileImage=""
+                profileImage={userData.profileImage}
                 sendOpenModal={openModal}
               />
             </div>
@@ -145,6 +146,7 @@ export default function Chat() {
                 time="08:05 PM"
                 typing={false}
               />
+              {/* <TestUpload /> */}
             </div>
           </div>
           <div className="flex flex-col drop-shadow-md">
