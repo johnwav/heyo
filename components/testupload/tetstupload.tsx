@@ -15,6 +15,7 @@ export default function TestUpload() {
     console.log(e.target.files);
     e.target.files && setFile(e.target.files[0]);
   };
+
   const { _id: id } = useSelector((state: RootState) => state.user);
 
   const handleUpload = async () => {
