@@ -84,7 +84,7 @@ export default function Chat() {
             <div className="">
               <CurrentUser
                 username={userData.username}
-                profileImage=""
+                profileImage={userData.profileImage}
                 sendOpenModal={openModal}
               />
             </div>
