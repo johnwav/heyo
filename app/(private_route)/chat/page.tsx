@@ -26,7 +26,7 @@ export default function Chat() {
     session && getuser(session, dispatch).then(() => setLoading(false));
     console.log("init user data loaded from store", userData);
   };
-
+  
   useEffect(() => {
     handleSignIn();
   }, [session]);
@@ -146,7 +146,7 @@ export default function Chat() {
                 time="08:05 PM"
                 typing={false}
               />
-              <TestUpload />
+              {/* <TestUpload /> */}
             </div>
           </div>
           <div className="flex flex-col drop-shadow-md">
