@@ -39,6 +39,12 @@ const UserSchema = new Schema({
     type: String,
     default: "Hey, i'm using Heyo!",
   },
+  messages: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Message",
+    },
+  ],
 });
 
 //Hash the password before saving
