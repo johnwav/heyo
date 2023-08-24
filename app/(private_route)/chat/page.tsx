@@ -24,7 +24,7 @@ export default function Chat() {
 
   const handleSignIn = async () => {
     session && getuser(session, dispatch).then(() => setLoading(false));
-    console.log("init user data loaded from store", userData);
+    // console.log("init user data loaded from store", userData);
   };
   
   useEffect(() => {
@@ -163,7 +163,7 @@ export default function Chat() {
             style={customStyles}
             // contentLabel="Example Modal"
           >
-            <EditProfile id={userData._id} username={userData.username} about={userData.about} />
+            <EditProfile id={userData._id} email={userData.email} username={userData.username} about={userData.about} />
           </Modal>
         </>
       )}

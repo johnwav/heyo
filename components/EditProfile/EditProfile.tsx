@@ -14,9 +14,10 @@ interface Props {
   about: string;
   username: string;
   id: string;
+  email: string;
 }
 
-export default function EditProfile({ about, username }: Props) {
+export default function EditProfile({ about, username, email }: Props) {
   const dispatch = useDispatch();
   const [isUpdateAboutOpen, setIsUpdateAboutOpen] = useState(false);
   const [aboutText, setAboutText] = useState(about);
@@ -161,7 +162,7 @@ export default function EditProfile({ about, username }: Props) {
                 />
               ) : (
                 <strong onClick={() => setIsUpdateAboutOpen(true)}>
-                  {about}{" "}
+                  {about}
                 </strong>
               )}
               <svg
@@ -182,7 +183,7 @@ export default function EditProfile({ about, username }: Props) {
           </div>
           <div className="flex flex-col gap-[6px]">
             <label>Email Address</label>
-            <strong>masontyrell97@gmail.com</strong>
+            <strong>{email}</strong>
           </div>
         </div>
       </div>
