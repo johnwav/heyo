@@ -1,7 +1,7 @@
 "use client";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateUserAboutAction,
@@ -24,7 +24,8 @@ export default function EditProfile({ about, username, email }: Props) {
   const [aboutText, setAboutText] = useState(about);
   const [uploadedFile, setUploadedFile] = useState<string>();
   const [upload, setUpload] = useState(false);
-  const [file, setFile] = useState<File>();
+  const [index, setIndex] = useState(0);
+  const [file, setFile] = useState<File | null>();
   const style = {
     width: "645px",
     height: "512px",
@@ -33,9 +34,11 @@ export default function EditProfile({ about, username, email }: Props) {
   };
   const { _id: sessionId } = useSelector((state: RootState) => state.user);
 
-  const selectFile = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-    e.target.files && setFile(e.target.files[0]);
+  const selectFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      console.log(e.target.files);
+      setFile(e.target.files[0]);
+    }
   };
   const { _id: id, profileImage } = useSelector(
     (state: RootState) => state.user
@@ -44,6 +47,7 @@ export default function EditProfile({ about, username, email }: Props) {
   const handleUpload = async () => {
     if (!file) return;
     try {
+      console.log("uploadind in handleupload func");
       const result = await S3Upload(file);
       if (result?.error) return;
       if (result?.url) {
@@ -63,6 +67,7 @@ export default function EditProfile({ about, username, email }: Props) {
         setUploadedFile(result.url);
         await dispatch(updateUserProfileImageAction(result.url));
         setUpload(false);
+        setFile(null);
       }
     } catch (error) {
       return error;
@@ -97,15 +102,25 @@ export default function EditProfile({ about, username, email }: Props) {
     }
   };
 
+  useEffect(() => {
+    if (file) {
+      console.log("uploadind files");
+      handleUpload();
+    }
+  }, [file]);
+
   return (
     <div style={style} className="rounded-2xl overflow-hidden">
       <div className="bg-green px-[18px] py-[20px] flex flex-col justify-between text-white">
         <div className="flex flex-col items-start gap-[10px] mt-[80px] ">
           <button className="text-[16px] py-[5px] px-[10px]  outline rounded flex items-center w-full gap-[30px]">
-            <Image  width={24} height={24} alt={"user"} src={"/user.png"} />
+            <Image width={24} height={24} alt={"user"} src={"/user.png"} />
             Profile
           </button>
-          <button disabled className="text-[16px] py-[5px] px-[10px]  rounded flex items-center w-full gap-[30px]">
+          <button
+            disabled
+            className="text-[16px] py-[5px] px-[10px]  rounded flex items-center w-full gap-[30px]"
+          >
             <Image width={24} height={24} alt={"gears"} src={"/settings.png"} />
             Settings
           </button>
@@ -127,23 +142,35 @@ export default function EditProfile({ about, username, email }: Props) {
         </button>
       </div>
       <div className="bg-background p-3 flex flex-col items-start pl-[44px] pt-[40px]">
-        <button onClick={() => setUpload((prev) => !prev)}>
-          <Image
-            src={profileImage}
-            alt="Profile Image"
-            width={124}
-            height={124}
-            className="rounded-full"
-          />
-        </button>
-        {upload && (
-          <>
-            <input type="file" onChange={(e) => selectFile(e)} />
-            <button onClick={handleUpload}>Upload</button>
-          </>
-        )}
+        <button className="relative" onClick={() => setUpload((prev) => !prev)}>
+          <div
+            onMouseOver={() => setIndex(2)}
+            onMouseLeave={() => setIndex(0)}
+            className="w-[124px] h-[124px] absolute z-[1] "
+          >
+            <Image
+              src={profileImage}
+              alt="Profile Image"
+              width={124}
+              height={124}
+              className="rounded-full w-[124px] h-[124px]"
+            />
+          </div>
 
-        <div className="mt-[28px] flex flex-col gap-[12px] w-full">
+          <div
+            onMouseOver={() => setIndex(2)}
+            onMouseLeave={() => setIndex(0)}
+            className={`absolute w-[124px] z-[${index}] h-[124px] rounded-full flex items-center justify-center bg-slate-300 opacity-80 `}
+          >
+            <p className="absolute">Change Profile Image</p>
+            <input
+              className="bg-[red] p-[60px] opacity-0 rounded-full"
+              type="file"
+              onChange={(e) => selectFile(e)}
+            />
+          </div>
+        </button>
+        <div className="mt-[158px] flex flex-col gap-[12px] w-full">
           <button className="flex items-center justify-between w-full">
             <h1 className="font-bold text-[25px]">@{username}</h1>
             <svg
