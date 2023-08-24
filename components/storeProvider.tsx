@@ -8,7 +8,7 @@ interface Props {
   children: ReactNode;
 }
 
-export const Storerovider = ({ children }: Props) => (
+export const StoreProvider = ({ children }: Props) => (
     //@ts-ignore
   <Provider store={userStore}>{children}</Provider>
 );
