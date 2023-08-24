@@ -45,6 +45,12 @@ const UserSchema = new Schema({
       ref: "Message",
     },
   ],
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Friend'
+    }
+  ]
 });
 
 //Hash the password before saving
@@ -68,6 +74,14 @@ UserSchema.methods.comparePassword = async function (password: string) {
     throw error;
   }
 };
+
+UserSchema.methods.addFriend = async function (friendId: string) {
+  if (!this.friends.includes(friendId)) {
+    this.friends.push(friendId);
+    await this.save();
+  }
+};
+
 const User = models.User || model("User", UserSchema);
 
 export default User;
