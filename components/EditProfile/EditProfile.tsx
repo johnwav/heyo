@@ -9,6 +9,7 @@ import {
 } from "@/features/user/userSlice";
 import { RootState } from "@/store/userStore";
 import { S3Upload } from "@/utils/useS3upload";
+import user from "@/public/noun-user.svg";
 
 interface Props {
   about: string;
@@ -61,7 +62,7 @@ export default function EditProfile({ about, username, email }: Props) {
         console.log(response);
         setUploadedFile(result.url);
         await dispatch(updateUserProfileImageAction(result.url));
-        setUpload(false)
+        setUpload(false);
       }
     } catch (error) {
       return error;
@@ -98,10 +99,16 @@ export default function EditProfile({ about, username, email }: Props) {
 
   return (
     <div style={style} className="rounded-2xl overflow-hidden">
-      <div className="bg-green p-[24px] flex flex-col justify-between text-white">
-        <div className="flex flex-col items-start ">
-          <button className="text-[16px]">Profile</button>
-          <button className="text-[16px]">Settings</button>
+      <div className="bg-green px-[18px] py-[20px] flex flex-col justify-between text-white">
+        <div className="flex flex-col items-start gap-[10px] mt-[80px] ">
+          <button className="text-[16px] py-[5px] px-[10px]  outline rounded flex items-center w-full gap-[30px]">
+            <Image  width={24} height={24} alt={"user"} src={"/user.png"} />
+            Profile
+          </button>
+          <button disabled className="text-[16px] py-[5px] px-[10px]  rounded flex items-center w-full gap-[30px]">
+            <Image width={24} height={24} alt={"gears"} src={"/settings.png"} />
+            Settings
+          </button>
         </div>
         <button
           onClick={handleSignOut}
@@ -130,11 +137,11 @@ export default function EditProfile({ about, username, email }: Props) {
           />
         </button>
         {upload && (
-            <>
-              <input type="file" onChange={(e) => selectFile(e)} />
-              <button onClick={handleUpload}>Upload</button>
-            </>
-          )}
+          <>
+            <input type="file" onChange={(e) => selectFile(e)} />
+            <button onClick={handleUpload}>Upload</button>
+          </>
+        )}
 
         <div className="mt-[28px] flex flex-col gap-[12px] w-full">
           <button className="flex items-center justify-between w-full">
@@ -161,20 +168,25 @@ export default function EditProfile({ about, username, email }: Props) {
                   onKeyDown={updateAbout}
                 />
               ) : (
-                <strong onClick={() => setIsUpdateAboutOpen(true)}>
+                <strong
+                  className="pr-[150px]"
+                  onClick={() => setIsUpdateAboutOpen(true)}
+                >
                   {about}
                 </strong>
               )}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                className="mr-[40px]"
-                fill="grey"
-              >
-                <path d="M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z" />
-              </svg>
+              <button onClick={() => setIsUpdateAboutOpen((prev) => !prev)}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  className="mr-[40px]"
+                  fill="grey"
+                >
+                  <path d="M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z" />
+                </svg>
+              </button>
             </button>
           </div>
           <div className="flex flex-col gap-[6px]">
