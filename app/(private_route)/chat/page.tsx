@@ -163,7 +163,7 @@ export default function Chat() {
             style={customStyles}
             // contentLabel="Example Modal"
           >
-            <EditProfile id={userData._id} username={userData.username} about={userData.about} />
+            <EditProfile id={userData._id} email={userData.email} username={userData.username} about={userData.about} />
           </Modal>
         </>
       )}
