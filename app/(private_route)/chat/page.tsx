@@ -25,7 +25,7 @@ export default function Chat() {
 
   const handleSignIn = async () => {
     if (session && !userSignedIn) {
-      setUserSignedIn(true)
+      setUserSignedIn(true);
       getuser(session, dispatch).then(() => setLoading(false));
       console.log("init user data loaded from store", userData);
     }
@@ -122,7 +122,7 @@ export default function Chat() {
                 lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
                 time="08:05 PM"
                 typing={false}
-              />{" "}
+              />
               <ChatCard
                 firstName="Christiana"
                 lastName="Beth"
@@ -131,7 +131,7 @@ export default function Chat() {
                 lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
                 time="08:05 PM"
                 typing={false}
-              />{" "}
+              />
               <ChatCard
                 firstName="Christiana"
                 lastName="Beth"
