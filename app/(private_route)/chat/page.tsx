@@ -24,7 +24,7 @@ export default function Chat() {
 
   const handleSignIn = async () => {
     session && getuser(session, dispatch).then(() => setLoading(false));
-    console.log("init user data loaded from store", userData);
+    // console.log("init user data loaded from store", userData);
   };
   
   useEffect(() => {
