@@ -20,13 +20,17 @@ export default function Chat() {
   const userData = useSelector((state: RootState) => state.user);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [userSignedIn, setUserSignedIn] = useState(false);
   const dispatch = useDispatch();
 
   const handleSignIn = async () => {
-    session && getuser(session, dispatch).then(() => setLoading(false));
-    // console.log("init user data loaded from store", userData);
+    if (session && !userSignedIn) {
+      setUserSignedIn(true)
+      getuser(session, dispatch).then(() => setLoading(false));
+      console.log("init user data loaded from store", userData);
+    }
   };
-  
+
   useEffect(() => {
     handleSignIn();
   }, [session]);
@@ -163,7 +167,12 @@ export default function Chat() {
             style={customStyles}
             // contentLabel="Example Modal"
           >
-            <EditProfile id={userData._id} email={userData.email} username={userData.username} about={userData.about} />
+            <EditProfile
+              id={userData._id}
+              email={userData.email}
+              username={userData.username}
+              about={userData.about}
+            />
           </Modal>
         </>
       )}
