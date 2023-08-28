@@ -9,7 +9,6 @@ import {
 } from "@/features/user/userSlice";
 import { RootState } from "@/store/userStore";
 import { S3Upload } from "@/utils/useS3upload";
-import user from "@/public/noun-user.svg";
 
 interface Props {
   about: string;
@@ -24,7 +23,7 @@ export default function EditProfile({ about, username, email }: Props) {
   const [aboutText, setAboutText] = useState(about);
   const [uploadedFile, setUploadedFile] = useState<string>();
   const [upload, setUpload] = useState(false);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(10);
   const [file, setFile] = useState<File | null>();
   const style = {
     width: "645px",
@@ -33,6 +32,10 @@ export default function EditProfile({ about, username, email }: Props) {
     gridTemplateColumns: "0.5fr 1fr",
   };
   const { _id: sessionId } = useSelector((state: RootState) => state.user);
+
+  const uploadstyle = {
+    zIndex: index,
+  };
 
   const selectFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -47,7 +50,7 @@ export default function EditProfile({ about, username, email }: Props) {
   const handleUpload = async () => {
     if (!file) return;
     try {
-      console.log("uploadind in handleupload func");
+      console.log("uploading in handleUpload func");
       const result = await S3Upload(file);
       if (result?.error) return;
       if (result?.url) {
@@ -109,6 +112,8 @@ export default function EditProfile({ about, username, email }: Props) {
     }
   }, [file]);
 
+  console.log(index);
+
   return (
     <div style={style} className="rounded-2xl overflow-hidden">
       <div className="bg-green px-[18px] py-[20px] flex flex-col justify-between text-white">
@@ -160,7 +165,8 @@ export default function EditProfile({ about, username, email }: Props) {
           <div
             onMouseOver={() => setIndex(2)}
             onMouseLeave={() => setIndex(0)}
-            className={`absolute w-[124px] z-[${index}] h-[124px] rounded-full flex items-center justify-center bg-slate-300 opacity-80 `}
+            style={uploadstyle}
+            className={`absolute w-[124px] h-[124px] rounded-full flex items-center justify-center bg-slate-300 opacity-80 `}
           >
             <p className="absolute">Change Profile Image</p>
             <input
