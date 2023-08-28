@@ -5,7 +5,7 @@ import Message from "../Message/Message";
 export default function ChatArea() {
   return (
     <div className="h-full relative">
-      <div className="absolute z-[900] w-full h-auto py-[32px] px-[40px]">
+      <div className="absolute z-[900] w-full h-auto py-[32px] px-[40px] flex flex-col gap-[20px]">
         <Message type="them" message="Hey there! What's up?" />
         <Message
           type="you"
