@@ -7,7 +7,7 @@ interface Props {
 export default function Message({ type, message }: Props) {
   const bgcolor = type === "them" ? "white" : "#49C4BC";
   const textColor = type === "them" ? "#828181" : "white";
-  const postion = type === "them" ? "flex-start" : "flex-end";
+  const position = type === "them" ? "flex-start" : "flex-end";
   const style = {
     backgroundColor: bgcolor,
     color: textColor,
@@ -15,7 +15,7 @@ export default function Message({ type, message }: Props) {
 
   return (
     <div
-      style={{ justifyContent: postion }}
+      style={{ justifyContent: position }}
       className="w-full flex justify-end"
     >
       <div
