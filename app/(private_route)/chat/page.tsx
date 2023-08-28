@@ -13,7 +13,6 @@ import EditProfile from "@/components/EditProfile/EditProfile";
 //@ts-ignore
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
-import TestUpload from "@/components/testupload/tetstupload";
 
 export default function Chat() {
   const { data: session } = useSession();
