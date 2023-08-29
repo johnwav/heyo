@@ -29,6 +29,7 @@ export default function CurrentUser({
         id="IconChangeColor"
         height="20"
         width="20"
+        className="hover:scale-110"
       >
         <rect width="256" height="256" fill="none"></rect>
         <polyline
