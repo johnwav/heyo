@@ -10,7 +10,7 @@ export default function ChatHeader({username, status, profileImage}: IChatHeader
           width={72}
           height={72}
           alt="Profile Image"
-          className="rounded-full"
+          className="rounded-full hover:scale-110"
         />
         <div className="flex flex-col items-start justify-center ">
           <h1 className="text-[25px] text-black font-[600]">{username}</h1>
@@ -19,7 +19,7 @@ export default function ChatHeader({username, status, profileImage}: IChatHeader
       </div>
 
       <div className="flex gap-[50px]">
-        <button>
+        <button className="hover:scale-110">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24.613"
@@ -59,7 +59,7 @@ export default function ChatHeader({username, status, profileImage}: IChatHeader
             </g>
           </svg>
         </button>
-        <button>
+        <button className="hover:scale-110">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21.725"
@@ -75,7 +75,7 @@ export default function ChatHeader({username, status, profileImage}: IChatHeader
             />
           </svg>
         </button>
-        <button>
+        <button className="hover:scale-110">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="6"

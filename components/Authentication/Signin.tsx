@@ -94,9 +94,9 @@ export default function SignInComponent() {
         <GoogleSignIn text="Continue with Google instead" />
 
         <p className="text-[12px]">
-          New to Heyo?{" "}
+          New to Heyo?
           <strong className="text-[12px]">
-            <Link href={"/auth/signup"}>Sign in</Link>
+            <Link href={"/auth/signup"}>Sign up</Link>
           </strong>
         </p>
       </form>

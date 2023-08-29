@@ -23,7 +23,7 @@ export default function EditProfile({ about, username, email }: Props) {
   const [aboutText, setAboutText] = useState(about);
   const [uploadedFile, setUploadedFile] = useState<string>();
   const [upload, setUpload] = useState(false);
-  const [index, setIndex] = useState(10);
+  const [index, setIndex] = useState(0);
   const [file, setFile] = useState<File | null>();
   const style = {
     width: "645px",
@@ -112,19 +112,17 @@ export default function EditProfile({ about, username, email }: Props) {
     }
   }, [file]);
 
-  console.log(index);
-
   return (
     <div style={style} className="rounded-2xl overflow-hidden">
       <div className="bg-green px-[18px] py-[20px] flex flex-col justify-between text-white">
         <div className="flex flex-col items-start gap-[10px] mt-[80px] ">
-          <button className="text-[16px] py-[5px] px-[10px]  outline rounded flex items-center w-full gap-[30px]">
+          <button className="text-[16px] py-[5px] px-[10px]  outline rounded flex items-center w-full gap-[30px] hover:scale-110">
             <Image width={24} height={24} alt={"user"} src={"/user.png"} />
             Profile
           </button>
           <button
             disabled
-            className="text-[16px] py-[5px] px-[10px]  rounded flex items-center w-full gap-[30px]"
+            className="text-[16px] py-[5px] px-[10px]  rounded flex items-center w-full gap-[30px] hover:scale-110"
           >
             <Image width={24} height={24} alt={"gears"} src={"/settings.png"} />
             Settings
@@ -132,7 +130,7 @@ export default function EditProfile({ about, username, email }: Props) {
         </div>
         <button
           onClick={handleSignOut}
-          className="flex items-center w-full pl-[27px] text-[16px]"
+          className="flex items-center w-full pl-[27px] text-[16px] hover:scale-110"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +183,7 @@ export default function EditProfile({ about, username, email }: Props) {
               height="16"
               viewBox="0 0 24 24"
               fill="grey"
-              className="mr-[40px]"
+              className="mr-[40px] hover:scale-110"
             >
               <path d="M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z" />
             </svg>
@@ -208,7 +206,7 @@ export default function EditProfile({ about, username, email }: Props) {
                   {about}
                 </strong>
               )}
-              <button onClick={() => setIsUpdateAboutOpen((prev) => !prev)}>
+              <button className="hover:scale-110" onClick={() => setIsUpdateAboutOpen((prev) => !prev)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"

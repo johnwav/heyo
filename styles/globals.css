@@ -52,7 +52,7 @@ img {
 main {
   min-height: 100vh;
   margin: 0 auto;
-  max-width: var(--max-width);
+  /* max-width: var(--max-width); */
   font-family: var(--font-poppins);
 }
 

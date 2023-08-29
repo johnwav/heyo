@@ -9,7 +9,7 @@ export function SignIn({ text, loading }: IButtonProps) {
       // style={{ opacity: loading ? 0.5 : 1 }}
       className="text-white text-[14px] h-[42px] w-full max-w-[400px] rounded-lg bg-green flex items-center justify-center"
     >
-      {loading ? <PulseLoader /> : text}
+      {loading ? <PulseLoader color="white" /> : text}
     </button>
   );
 }

@@ -129,7 +129,7 @@ export default function SignUpComponent() {
         <GoogleSignIn text="Continue with Google instead" />
 
         <p className="text-[12px]">
-          Have an account? <strong className="text-[12px]"><Link href={"/auth/login"}>Sign Up</Link></strong>
+          Have an account? <strong className="text-[12px]"><Link href={"/auth/login"}>Sign in</Link></strong>
         </p>
       </form>
     </div>

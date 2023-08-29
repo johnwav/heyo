@@ -13,8 +13,8 @@ export default function SearchChats() {
       {/* search icon */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24.613"
-        height="24.585"
+        width="20"
+        height="20"
         viewBox="0 0 24.613 24.585"
       >
         <g
@@ -30,7 +30,7 @@ export default function SearchChats() {
             r="9.923"
             transform="translate(3 3)"
             fill="none"
-            stroke="#494949"
+            stroke="#828181"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="3"
@@ -42,7 +42,7 @@ export default function SearchChats() {
             y1="3.785"
             transform="translate(20.178 20.178)"
             fill="none"
-            stroke="#494949"
+            stroke="#828181"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="3"
@@ -65,6 +65,22 @@ export default function SearchChats() {
       </form>
 
       {/* plus icon */}
+      <button className="rounded-full bg-green w-[54px] h-[54px] flex justify-center items-center hover:scale-110">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+          stroke="white"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"
+          />
+        </svg>
+      </button>
     </div>
   );
 }
