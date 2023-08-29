@@ -13,8 +13,8 @@ export default function AuthLayout({
 }) {
   return (
     <main className="bg-[#0000000F] z-0 relative overflow-hidden">
+      
       <div className="bg-appTexture z-10 bg-cover absolute w-full h-full"></div>
-
       <div className="w-full mt-[20px] bg-transparent z-20 absolute flex items-center justify-center ">
         <Image
           src="/assets/logo.png"
