@@ -22,7 +22,7 @@ export default function ChatTextFeild() {
     <div className="flex gap-4 items-end rounded-[18px] max-h-[200px] justify-between px-[32px] bg-white min-h-[72px] w-full max-w-[1146px]">
       <div className="flex gap-8 pb-[20px]">
         {/* emoji */}
-        <button>
+        <button className="hover:scale-110">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="22"
@@ -83,7 +83,7 @@ export default function ChatTextFeild() {
           </svg>
         </button>
         {/* attach file */}
-        <button>
+        <button className="hover:scale-110">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21.853"
@@ -118,7 +118,7 @@ export default function ChatTextFeild() {
 
       <div className="flex gap-8 pb-[8px]">
         {/* mircophone */}
-        <button className="hover:animate-pulse">
+        <button className="hover:scale-110">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -165,7 +165,7 @@ export default function ChatTextFeild() {
           </svg>
         </button>
         {/* send message */}
-        <button onClick={handleSubmit} className=" hover:animate-pulse">
+        <button onClick={handleSubmit} className="hover:scale-110">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="52"
