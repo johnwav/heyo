@@ -20,7 +20,7 @@ export default function ChatCard({
   };
 
   return (
-    <div className="flex items-center justify-between bg-white border-b-2 border-b-lightgrey w-full h-[96px] hover:bg-slate-100 rounded-2xl">
+    <div className="flex hover:scale-105 items-center justify-between bg-white border-b-2 border-b-lightgrey w-full h-[96px] rounded-2xl">
       <div className="user flex gap-2 ">
         <Image
           src="https://sp-images.summitpost.org/1038746.jpg?auto=format&fit=max&ixlib=php-2.1.1&q=35&w=1024&s=394ed8f3158db7ef966a1b238d293e8b"
