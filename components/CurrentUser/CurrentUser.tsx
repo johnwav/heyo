@@ -20,7 +20,7 @@ export default function CurrentUser({
         alt="Profile Image"
         width={72}
         height={72}
-        className="rounded-full"
+        className="rounded-full hover:scale-110"
       />
       <h1 className="text-black font-[600]">@{username}</h1>
       <svg
