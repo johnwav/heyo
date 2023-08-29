@@ -23,7 +23,7 @@ export default function EditProfile({ about, username, email }: Props) {
   const [aboutText, setAboutText] = useState(about);
   const [uploadedFile, setUploadedFile] = useState<string>();
   const [upload, setUpload] = useState(false);
-  const [index, setIndex] = useState(10);
+  const [index, setIndex] = useState(0);
   const [file, setFile] = useState<File | null>();
   const style = {
     width: "645px",
@@ -112,7 +112,6 @@ export default function EditProfile({ about, username, email }: Props) {
     }
   }, [file]);
 
-  console.log(index);
 
   return (
     <div style={style} className="rounded-2xl overflow-hidden">
