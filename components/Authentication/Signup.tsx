@@ -44,7 +44,7 @@ export default function SignUpComponent() {
       });
       const result = await response.json();
       setLoading(false);
-      router.replace("auth/login");
+      router.replace("/auth/login");
       console.log(result);
     } catch (error) {
       console.log("error creating account", error);
