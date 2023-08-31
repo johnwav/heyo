@@ -7,6 +7,7 @@ export const POST = async (req: Request, res: Response) => {
   const { userId, friendUsername } = await req.json();
 
   try {
+    await dbConnect()
     // 1 Find the friend's user document
     //find the friend's account
     const friend = await User.findOne({ username: friendUsername });
