@@ -18,7 +18,7 @@ export const POST = async (req: Request, res: Response) => {
     }
 
     // Remove the friendship document
-    await existingFriendship.remove();
+    await Friend.findByIdAndRemove(existingFriendship._id)
 
     // Update the user's friends list
     const user = await User.findById(userId);
@@ -30,7 +30,7 @@ export const POST = async (req: Request, res: Response) => {
     }
 
     // Return success response
-    return new Response("Friend added successfully", {status:200})
+    return new Response("Friend removed successfully", {status:200})
   } catch (error) {
     console.error(error);
     return new Response("Error removing friend")
