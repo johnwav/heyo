@@ -1,32 +1,38 @@
 import User from "@/models/user";
 import Friend from "@/models/friend";
 import dbConnect from "@/utils/database";
-import { error } from "console";
 
 export const POST = async (req: Request, res: Response) => {
-  const { userId, friendUsername } = await req.json();
+  const { userId, friendshipId } = await req.json()
 
   try {
-    await dbConnect()
-    // 1 Find the friend's user document
-    //find the friend's account
-    const friend = await User.findOne({ username: friendUsername });
-    if (!friend) {
-      return new Response("Friend Not Found", { status: 404 });
-    }
-    // find if thhis friend relationship already exists ie theyre already friends
-    const existingFriend = await Friend.findOne({
+    // Find the friendship document
+    await dbConnect();
+    const existingFriendship = await Friend.findOne({
       userId: userId,
-      friendId: friend._id, //the friends id
+      _id: friendshipId,
     });
 
-    if (existingFriend) {
-      // remove friend
-      Friend.findByIdAndDelete(existingFriend._id);
-      return new Response("Friend removed successfully", { status: 200 });
+    if (!existingFriendship) {
+      return new Response ("Frieind not found", {status: 404})
     }
+
+    // Remove the friendship document
+    await existingFriendship.remove();
+
+    // Update the user's friends list
+    const user = await User.findById(userId);
+    if (user && user.friends.includes(friendshipId)) {
+      user.friends = user.friends.filter(
+        (friendId:string) => friendId.toString() !== friendshipId.toString()
+      );
+      await user.save();
+    }
+
+    // Return success response
+    return new Response("Friend added successfully", {status:200})
   } catch (error) {
-    return new Response("error removing friend", { status: 500 });
+    console.error(error);
+    return new Response("Error removing friend")
   }
 };
-
