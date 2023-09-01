@@ -3,7 +3,7 @@ import Friend from "@/models/friend";
 import dbConnect from "@/utils/database";
 
 export const POST = async (req: Request, res: Response) => {
-  const { userId, friendshipId } = await req.json()
+  const { userId, friendshipId } = await req.json();
 
   try {
     // Find the friendship document
@@ -14,25 +14,40 @@ export const POST = async (req: Request, res: Response) => {
     });
 
     if (!existingFriendship) {
-      return new Response ("Frieind not found", {status: 404})
+      return new Response("Frieind not found", { status: 404 });
     }
 
     // Remove the friendship document
-    await Friend.findByIdAndRemove(existingFriendship._id)
+    await Friend.findByIdAndRemove(existingFriendship._id);
 
     // Update the user's friends list
-    const user = await User.findById(userId);
-    if (user && user.friends.includes(friendshipId)) {
-      user.friends = user.friends.filter(
-        (friendId:string) => friendId.toString() !== friendshipId.toString()
-      );
-      await user.save();
-    }
+
+    // Update the user's friends list
+    await User.findByIdAndUpdate(
+      userId,
+      { $pull: { friends: friendshipId } },
+      { new: true }
+    );
+
+    // Update the friend's friends list (both ways)
+    await User.findByIdAndUpdate(
+      existingFriendship.friendId,
+      { $pull: { friends: friendshipId } },
+      { new: true }
+    );
+
+    // const user = await User.findById(userId);
+    // if (user && user.friends.includes(friendshipId)) {
+    //   user.friends = user.friends.filter(
+    //     (friendId:string) => friendId.toString() !== friendshipId.toString()
+    //   );
+    //   await user.save();
+    // }
 
     // Return success response
-    return new Response("Friend removed successfully", {status:200})
+    return new Response("Friend removed successfully", { status: 200 });
   } catch (error) {
     console.error(error);
-    return new Response("Error removing friend")
+    return new Response("Error removing friend");
   }
 };
