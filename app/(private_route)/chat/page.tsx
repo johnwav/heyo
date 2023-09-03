@@ -83,7 +83,7 @@ export default function Chat() {
         </Modal>
       ) : (
         <>
-          <div className="flex flex-col gap-[1.5em] drop-shadow-md">
+          <div className="flex flex-col gap-[1.5em] h-screen pb-[3em] drop-shadow-md">
             <div className="">
               <CurrentUser
                 username={userData.username}
@@ -94,7 +94,16 @@ export default function Chat() {
             <div className="">
               <SearchChats />
             </div>
-            <div className="scroll w-full flex-grow bg-white rounded-[30px] p-[1.5em] overflow-scroll ">
+            <div className="scroll w-full flex-grow  bg-white rounded-[30px] p-[1.5em] overflow-scroll ">
+              <ChatCard
+                firstName="Christiana"
+                lastName="Beth"
+                status="online"
+                profileImage=""
+                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
+                time="08:05 PM"
+                typing={false}
+              />
               <ChatCard
                 firstName="Christiana"
                 lastName="Beth"
@@ -152,7 +161,7 @@ export default function Chat() {
               {/* <TestUpload /> */}
             </div>
           </div>
-          <div className="flex flex-col drop-shadow-md">
+          <div className="flex flex-col drop-shadow-md pb-[3em]">
             <ChatHeader username="Christiana" status="online" profileImage="" />
             <div className="w-full h-full">
               <ChatArea />
