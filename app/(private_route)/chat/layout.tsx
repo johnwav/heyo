@@ -11,7 +11,7 @@ export default function ChatLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="m-auto h-screen w-full bg-background">
+    <section className="m-auto h-screen overflow-hidden w-full bg-background">
       <div className="h-screen m-auto">{children}</div>
     </section>
   );

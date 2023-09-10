@@ -9,15 +9,17 @@ import {
 } from "@/features/user/userSlice";
 import { RootState } from "@/store/userStore";
 import { S3Upload } from "@/utils/useS3upload";
+import ZIM from "zego-zim-web";
 
 interface Props {
   about: string;
   username: string;
   id: string;
   email: string;
+  zim: ZIM,
 }
 
-export default function EditProfile({ about, username, email }: Props) {
+export default function EditProfile({ about, username, email, zim }: Props) {
   const dispatch = useDispatch();
   const [isUpdateAboutOpen, setIsUpdateAboutOpen] = useState(false);
   const [aboutText, setAboutText] = useState(about);
@@ -78,6 +80,7 @@ export default function EditProfile({ about, username, email }: Props) {
   };
 
   const handleSignOut = async () => {
+    await zim.logout()
     await signOut();
   };
 

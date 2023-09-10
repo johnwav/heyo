@@ -10,26 +10,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { getuser } from "@/features/user/getUser";
 import ChatArea from "@/components/ChatArea/ChatArea";
 import EditProfile from "@/components/EditProfile/EditProfile";
-//@ts-ignore
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
+import { ZIM } from "zego-zim-web";
 
 export default function Chat() {
+  const appID = parseInt(process.env.NEXT_PUBLIC_ZEGO_APPID!);
   const { data: session } = useSession();
   const userData = useSelector((state: RootState) => state.user);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userSignedIn, setUserSignedIn] = useState(false);
   const dispatch = useDispatch();
-
+  ZIM.create({ appID });
+  var zim = ZIM.getInstance();
   const handleSignIn = async () => {
-    if (session && !userSignedIn) {
+    if (session && session.user && !userSignedIn) {
       setUserSignedIn(true);
-      getuser(session, dispatch).then(() => setLoading(false));
-      console.log("init user data loaded from store", userData);
+      await getuser(session, dispatch, zim).then(() => {
+        setLoading(false);
+      });
     }
   };
-
   useEffect(() => {
     handleSignIn();
   }, [session]);
@@ -78,12 +80,12 @@ export default function Chat() {
   return (
     <div style={divStyle}>
       {loading ? (
-        <Modal isOpen={loading} onRequestClose={loading} style={customStyles}>
+        <Modal isOpen={loading} onRequestClose={closeModal} style={customStyles} ariaHideApp={false}>
           <Loading />
         </Modal>
       ) : (
         <>
-          <div className="flex flex-col gap-[1.5em] drop-shadow-md">
+          <div className="flex flex-col gap-[1.5em] h-screen pb-[3em] drop-shadow-md">
             <div className="">
               <CurrentUser
                 username={userData.username}
@@ -94,7 +96,7 @@ export default function Chat() {
             <div className="">
               <SearchChats />
             </div>
-            <div className="scroll w-full flex-grow bg-white rounded-[30px] p-[1.5em] overflow-scroll ">
+            <div className="scroll w-full flex-grow  bg-white rounded-[30px] p-[1.5em] overflow-scroll ">
               <ChatCard
                 firstName="Christiana"
                 lastName="Beth"
@@ -149,10 +151,18 @@ export default function Chat() {
                 time="08:05 PM"
                 typing={false}
               />
-              {/* <TestUpload /> */}
+              <ChatCard
+                firstName="Christiana"
+                lastName="Beth"
+                status="online"
+                profileImage=""
+                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
+                time="08:05 PM"
+                typing={false}
+              />
             </div>
           </div>
-          <div className="flex flex-col drop-shadow-md">
+          <div className="flex flex-col drop-shadow-md pb-[3em]">
             <ChatHeader username="Christiana" status="online" profileImage="" />
             <div className="w-full h-full">
               <ChatArea />
@@ -162,15 +172,16 @@ export default function Chat() {
           <Modal
             isOpen={modalIsOpen}
             // onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
+            onRequestClose={() => closeModal()}
             style={customStyles}
-            // contentLabel="Example Modal"
+            ariaHideApp={false}
           >
             <EditProfile
               id={userData._id}
               email={userData.email}
               username={userData.username}
               about={userData.about}
+              zim={zim}
             />
           </Modal>
         </>
