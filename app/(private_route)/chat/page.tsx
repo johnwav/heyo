@@ -174,9 +174,8 @@ export default function Chat() {
           <Modal
             isOpen={modalIsOpen}
             // onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
+            onRequestClose={() => closeModal()}
             style={customStyles}
-            // contentLabel="Example Modal"
             ariaHideApp={false}
           >
             <EditProfile
@@ -184,6 +183,7 @@ export default function Chat() {
               email={userData.email}
               username={userData.username}
               about={userData.about}
+              zim={zim}
             />
           </Modal>
         </>
