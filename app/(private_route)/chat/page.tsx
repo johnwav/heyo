@@ -13,6 +13,8 @@ import EditProfile from "@/components/EditProfile/EditProfile";
 //@ts-ignore
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
+import { ZIM } from "zego-zim-web";
+import { generateToken } from "@/utils/token";
 
 export default function Chat() {
   const { data: session } = useSession();
@@ -23,10 +25,11 @@ export default function Chat() {
   const dispatch = useDispatch();
 
   const handleSignIn = async () => {
-    if (session && !userSignedIn) {
+    if (session && session.user && !userSignedIn) {
       setUserSignedIn(true);
-      getuser(session, dispatch).then(() => setLoading(false));
-      console.log("init user data loaded from store", userData);
+     await getuser(session, dispatch).then(() => {
+        setLoading(false)
+      })
     }
   };
 
@@ -174,6 +177,7 @@ export default function Chat() {
             onRequestClose={closeModal}
             style={customStyles}
             // contentLabel="Example Modal"
+            ariaHideApp={false}
           >
             <EditProfile
               id={userData._id}
