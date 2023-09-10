@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getuser } from "@/features/user/getUser";
 import ChatArea from "@/components/ChatArea/ChatArea";
 import EditProfile from "@/components/EditProfile/EditProfile";
-//@ts-ignore
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
 import { ZIM } from "zego-zim-web";
@@ -81,7 +80,7 @@ export default function Chat() {
   return (
     <div style={divStyle}>
       {loading ? (
-        <Modal isOpen={loading} onRequestClose={loading} style={customStyles}>
+        <Modal isOpen={loading} onRequestClose={closeModal} style={customStyles} ariaHideApp={false}>
           <Loading />
         </Modal>
       ) : (
