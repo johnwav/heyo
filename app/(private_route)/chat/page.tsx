@@ -160,7 +160,6 @@ export default function Chat() {
                 time="08:05 PM"
                 typing={false}
               />
-              {/* <TestUpload /> */}
             </div>
           </div>
           <div className="flex flex-col drop-shadow-md pb-[3em]">
