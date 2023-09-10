@@ -14,25 +14,25 @@ import EditProfile from "@/components/EditProfile/EditProfile";
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
 import { ZIM } from "zego-zim-web";
-import { generateToken } from "@/utils/token";
 
 export default function Chat() {
+  const appID = parseInt(process.env.NEXT_PUBLIC_ZEGO_APPID!);
   const { data: session } = useSession();
   const userData = useSelector((state: RootState) => state.user);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userSignedIn, setUserSignedIn] = useState(false);
   const dispatch = useDispatch();
-
+  ZIM.create({ appID });
+  var zim = ZIM.getInstance();
   const handleSignIn = async () => {
     if (session && session.user && !userSignedIn) {
       setUserSignedIn(true);
-     await getuser(session, dispatch).then(() => {
-        setLoading(false)
-      })
+      await getuser(session, dispatch, zim).then(() => {
+        setLoading(false);
+      });
     }
   };
-
   useEffect(() => {
     handleSignIn();
   }, [session]);

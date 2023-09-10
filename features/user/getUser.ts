@@ -7,7 +7,8 @@ import { generateToken } from "@/utils/token";
 
 export const getuser = async (
   session: Session,
-  dispatch: Dispatch<AnyAction>
+  dispatch: Dispatch<AnyAction>,
+  zim: ZIM
 ) => {
   if (session) {
     //@ts-ignore
@@ -25,9 +26,8 @@ export const getuser = async (
         // setUser(user);
         console.log("storing user data");
         await dispatch(storeUserAction(user));
-        const token = generateToken(user._id, 0)
+        const token = generateToken(user._id, 0);
         var userInfo = { userID: user._id, userName: user.username };
-        var zim = ZIM.getInstance();
         zim
           .login(userInfo, token)
           .then(() => {
@@ -39,8 +39,7 @@ export const getuser = async (
             // Login failed.
             console.log("error in zim login");
           });
-        console.log("user data stored successfully", user);
-        return {zim, user}
+        return zim;
       } else {
         console.error("Error fetching user data:", response.statusText);
       }
