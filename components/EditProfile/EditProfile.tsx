@@ -171,6 +171,7 @@ export default function EditProfile({ about, username, email, zim }: Props) {
           >
             <p className="absolute">Change Profile Image</p>
             <input
+              accept="image/*"
               className="bg-[red] p-[60px] opacity-0 rounded-full"
               type="file"
               onChange={(e) => selectFile(e)}
