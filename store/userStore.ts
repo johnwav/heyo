@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "@/features/user/userSlice";
-import zimReducer from "@/features/message/zimSlice";
 
 export const userStore = configureStore({
   reducer: {
     user: userReducer,
-    zim: zimReducer,
   },
 });
 
