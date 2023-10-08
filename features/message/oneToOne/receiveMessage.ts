@@ -5,7 +5,7 @@ export const receivePeerMessage = (zim: ZIM) => {
   zim.on(
     "receivePeerMessage",
     function (zim, { messageList, fromConversationID }) {
-      console.log(messageList, fromConversationID);
+      console.log('new message',messageList, fromConversationID);
     }
   );
 };
