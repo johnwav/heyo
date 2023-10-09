@@ -1,10 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import bcrypt from "bcrypt";
 
-interface Methods {
-  comparePassword(password: string): Promise<boolean>;
-}
-
 const UserSchema = new Schema({
   email: {
     type: String,
