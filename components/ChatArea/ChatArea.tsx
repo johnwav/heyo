@@ -10,9 +10,9 @@ export default function ChatArea() {
   return (
     <div className="h-full relative">
       <div className="absolute z-[900] w-full h-auto py-[32px] px-[40px] flex flex-col gap-[20px]">
-        {messages.map(message => (
+        {messages.map((message, index) => (
           //@ts-ignore
-          <Message type={message.sender} message={message.content} />
+          <Message key={index} type={message.sender} message={message.content} />
         ))}
 
         <Message type="them" message="Hey there! What's up?" />
