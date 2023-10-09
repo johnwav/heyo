@@ -1,11 +1,20 @@
 import Image from "next/image";
 import ChatTextFeild from "../ChatTextFeild/ChatTextFeild";
 import Message from "../Message/Message";
+import { RootState } from "@/store/userStore";
+import { useSelector } from "react-redux";
 
 export default function ChatArea() {
+  const messages = useSelector((state : RootState) => (state.messages))
+
   return (
     <div className="h-full relative">
       <div className="absolute z-[900] w-full h-auto py-[32px] px-[40px] flex flex-col gap-[20px]">
+        {messages.map(message => (
+          //@ts-ignore
+          <Message type={message.sender} message={message.content} />
+        ))}
+
         <Message type="them" message="Hey there! What's up?" />
         <Message
           type="you"
