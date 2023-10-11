@@ -7,42 +7,29 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import type { RootState } from "@/store/userStore";
 import { useSelector, useDispatch } from "react-redux";
-import { getuser } from "@/features/user/getUser";
+import { getUser } from "@/features/user/getUser";
 import ChatArea from "@/components/ChatArea/ChatArea";
 import EditProfile from "@/components/EditProfile/EditProfile";
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
-import { ZIM } from "zego-zim-web";
-import { receivePeerMessage } from "@/features/message/oneToOne/receiveMessage";
-import { useContext } from "react";
-import { ZimContext } from "@/store/zimContext";
 
 export default function Chat() {
-  const appID = parseInt(process.env.NEXT_PUBLIC_ZEGO_APPID!);
   const { data: session } = useSession();
   const userData = useSelector((state: RootState) => state.user);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userSignedIn, setUserSignedIn] = useState(false);
-  const { zim, setZim } = useContext(ZimContext);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!userSignedIn) {
-      ZIM.create({ appID });
-      var _zim = ZIM.getInstance();
-      setZim(_zim);
-      handleSignIn();
-    }
-    if (zim) {
-      receivePeerMessage(zim);
-    }
-  }, [session, zim]);
+    handleSignIn();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
 
   const handleSignIn = async () => {
-    if (session && session.user && !userSignedIn && zim) {
+    if (session && session.user && !userSignedIn) {
       setUserSignedIn(true);
-      await getuser(session, dispatch, zim).then(() => {
+      await getUser(session, dispatch).then(() => {
         setLoading(false);
       });
     }
@@ -197,7 +184,6 @@ export default function Chat() {
               email={userData.email}
               username={userData.username}
               about={userData.about}
-              zim={zim!}
             />
           </Modal>
         </>
