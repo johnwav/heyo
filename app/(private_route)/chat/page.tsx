@@ -13,6 +13,9 @@ import EditProfile from "@/components/EditProfile/EditProfile";
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
 import { ZIM } from "zego-zim-web";
+import { receivePeerMessage } from "@/features/message/oneToOne/receiveMessage";
+import { useContext } from "react";
+import { ZimContext } from "@/store/zimContext";
 
 export default function Chat() {
   const appID = parseInt(process.env.NEXT_PUBLIC_ZEGO_APPID!);
@@ -21,20 +24,29 @@ export default function Chat() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userSignedIn, setUserSignedIn] = useState(false);
+  const { zim, setZim } = useContext(ZimContext);
   const dispatch = useDispatch();
-  ZIM.create({ appID });
-  var zim = ZIM.getInstance();
+
+  useEffect(() => {
+    if (!userSignedIn) {
+      ZIM.create({ appID });
+      var _zim = ZIM.getInstance();
+      setZim(_zim);
+      handleSignIn();
+    }
+    if (zim) {
+      receivePeerMessage(zim);
+    }
+  }, [session, zim]);
+
   const handleSignIn = async () => {
-    if (session && session.user && !userSignedIn) {
+    if (session && session.user && !userSignedIn && zim) {
       setUserSignedIn(true);
       await getuser(session, dispatch, zim).then(() => {
         setLoading(false);
       });
     }
   };
-  useEffect(() => {
-    handleSignIn();
-  }, [session]);
 
   const divStyle = {
     display: "grid",
@@ -80,7 +92,12 @@ export default function Chat() {
   return (
     <div style={divStyle}>
       {loading ? (
-        <Modal isOpen={loading} onRequestClose={closeModal} style={customStyles} ariaHideApp={false}>
+        <Modal
+          isOpen={loading}
+          onRequestClose={closeModal}
+          style={customStyles}
+          ariaHideApp={false}
+        >
           <Loading />
         </Modal>
       ) : (
@@ -168,7 +185,6 @@ export default function Chat() {
               <ChatArea />
             </div>
           </div>
-          {/* <button onClick={}>signOut</button> */}
           <Modal
             isOpen={modalIsOpen}
             // onAfterOpen={afterOpenModal}
@@ -181,7 +197,7 @@ export default function Chat() {
               email={userData.email}
               username={userData.username}
               about={userData.about}
-              zim={zim}
+              zim={zim!}
             />
           </Modal>
         </>

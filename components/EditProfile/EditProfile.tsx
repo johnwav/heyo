@@ -194,7 +194,7 @@ export default function EditProfile({ about, username, email, zim }: Props) {
           </button>
           <div className="flex flex-col gap-[6px] w-full">
             <label className="text-[16px]">About</label>
-            <button className="flex  items-center justify-between w-full">
+            <div className="flex  items-center justify-between w-full">
               {isUpdateAboutOpen ? (
                 <input
                   onChange={(e) => setAboutText(e.target.value)}
@@ -222,7 +222,7 @@ export default function EditProfile({ about, username, email, zim }: Props) {
                   <path d="M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z" />
                 </svg>
               </button>
-            </button>
+            </div>
           </div>
           <div className="flex flex-col gap-[6px]">
             <label>Phone Number</label>
