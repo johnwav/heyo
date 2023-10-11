@@ -1,22 +1,11 @@
 "use client";
-import SEND_MESSAGE from "@/features/message/oneToOne/sendMessage";
-import { ZimContext } from "@/store/zimContext";
 import { useContext, useEffect, useState } from "react";
 
 export default function ChatTextFeild() {
   const [message, setMessage] = useState<string>("");
-  const { zim } = useContext(ZimContext);
-  const sendmessage = () => {
-    SEND_MESSAGE(
-      { type: 1, message: message },
-      zim!,
-      "64f1126e77b3d71457bdf854"
-    );
-  };
 
   function handleSubmit() {
     console.log(message);
-    sendmessage();
   }
 
   useEffect(() => {
