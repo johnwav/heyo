@@ -1,17 +1,14 @@
 import { Session } from "next-auth";
 import { storeUserAction } from "./userSlice";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
-import ZIM from "zego-zim-web";
-import { generateToken } from "@/utils/token";
 
-export const getuser = async (
+export const getUser = async (
   session: Session,
-  dispatch: Dispatch<AnyAction>,
-  zim: ZIM
+  dispatch: Dispatch<AnyAction>
 ) => {
   if (session) {
-    //@ts-ignore
+    // @ts-ignore
     const sessionId = session?.user?.id; // Get the session ID
     try {
       const response = await fetch("/api/getuser", {
@@ -26,20 +23,6 @@ export const getuser = async (
         // setUser(user);
         console.log("storing user data");
         await dispatch(storeUserAction(user));
-        const token = generateToken(user._id, 0);
-        var userInfo = { userID: user._id, userName: user.username };
-        zim
-          .login(userInfo, token)
-          .then(() => {
-            // Login successful.
-            console.log("zim logged in successfully");
-            // setLoading(false);
-          })
-          .catch((err) => {
-            // Login failed.
-            console.log("error in zim login");
-          });
-        return zim;
       } else {
         console.error("Error fetching user data:", response.statusText);
       }
