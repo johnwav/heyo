@@ -171,6 +171,7 @@ export default function EditProfile({ about, username, email }: Props) {
               className="bg-[red] p-[60px] opacity-0 rounded-full"
               type="file"
               onChange={(e) => selectFile(e)}
+              accept="image/*"
             />
           </div>
         </button>
@@ -206,7 +207,10 @@ export default function EditProfile({ about, username, email }: Props) {
                   {about}
                 </strong>
               )}
-              <button className="hover:scale-110" onClick={() => setIsUpdateAboutOpen((prev) => !prev)}>
+              <button
+                className="hover:scale-110"
+                onClick={() => setIsUpdateAboutOpen((prev) => !prev)}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
