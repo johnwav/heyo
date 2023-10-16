@@ -12,6 +12,12 @@ import ChatArea from "@/components/ChatArea/ChatArea";
 import EditProfile from "@/components/EditProfile/EditProfile";
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
+import AC, { AgoraChat } from 'agora-chat'
+
+
+
+
+
 
 export default function Chat() {
   const { data: session } = useSession();
@@ -20,6 +26,7 @@ export default function Chat() {
   const [loading, setLoading] = useState(true);
   const [userSignedIn, setUserSignedIn] = useState(false);
   const dispatch = useDispatch();
+  const appKey = "<Your app key>";
 
   useEffect(() => {
     handleSignIn();
