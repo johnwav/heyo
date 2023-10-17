@@ -12,12 +12,6 @@ import ChatArea from "@/components/ChatArea/ChatArea";
 import EditProfile from "@/components/EditProfile/EditProfile";
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
-import AC, { AgoraChat } from 'agora-chat'
-
-
-
-
-
 
 export default function Chat() {
   const { data: session } = useSession();
@@ -26,21 +20,56 @@ export default function Chat() {
   const [loading, setLoading] = useState(true);
   const [userSignedIn, setUserSignedIn] = useState(false);
   const dispatch = useDispatch();
-  const appKey = "<Your app key>";
+  // const [userId] = useState(() => parseInt(`${Math.random() * 1e2}`) + "");
+
+  const userId = "72";
 
   useEffect(() => {
     handleSignIn();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    //@ts-ignore
+    // const userId = userData._id;
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
   const handleSignIn = async () => {
     if (session && session.user && !userSignedIn) {
       setUserSignedIn(true);
+      //@ts-ignore
+      // await connectToAgoraRTM(session.user.id, token )
       await getUser(session, dispatch).then(() => {
+        const token = userData.token;
+        connectToAgoraRTM(userId, token);
         setLoading(false);
       });
     }
   };
+
+  async function connectToAgoraRTM(userId: string, token: string) {
+    const { default: AgoraRTM } = await import("agora-rtm-sdk");
+    const client = AgoraRTM.createInstance(
+      process.env.NEXT_PUBLIC_AGORA_APP_ID!
+    );
+    await client.login({
+      uid: userId,
+      token,
+    });
+
+    // client.sendMessageToPeer
+    // const channel = await client.createChannel(roomId);
+    // await channel.join();
+
+    // channel.on("ChannelMessage", (message, userId) => {
+    //   // onMessage({
+    //   //   userId,
+    //   //   message: message.text,
+    //   // });
+    // });
+
+    // return {
+    //   channel,
+    // };
+  }
 
   const divStyle = {
     display: "grid",
