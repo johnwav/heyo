@@ -1,5 +1,5 @@
 import { Session } from "next-auth";
-import { storeUserAction } from "./userSlice";
+import { storeToken, storeUserAction } from "./userSlice";
 import { Dispatch } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
 
@@ -22,7 +22,8 @@ export const getUser = async (
         const user = await response.json();
         // setUser(user);
         console.log("storing user data");
-        await dispatch(storeUserAction(user));
+        await dispatch(storeUserAction(user.user));
+        await dispatch(storeToken(user.token));
       } else {
         console.error("Error fetching user data:", response.statusText);
       }
