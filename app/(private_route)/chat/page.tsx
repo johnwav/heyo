@@ -15,19 +15,23 @@ import Loading from "@/components/Loading/Loading";
 
 export default function Chat() {
   const { data: session } = useSession();
-  const userData = useSelector((state: RootState) => state.user);
+  const userData = useSelector((state: RootState) => {
+    return state.user;
+  });
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [user, setUser] = useState({})
   const [loading, setLoading] = useState(true);
   const [userSignedIn, setUserSignedIn] = useState(false);
   const dispatch = useDispatch();
-  // const [userId] = useState(() => parseInt(`${Math.random() * 1e2}`) + "");
+  const [userId] = useState(() => parseInt(`${Math.random() * 1e2}`) + "");
 
-  const userId = "72";
+  useEffect(() => {
+    setUser(userData)
+  }, [userData])
 
   useEffect(() => {
     handleSignIn();
     //@ts-ignore
-    // const userId = userData._id;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
@@ -35,13 +39,10 @@ export default function Chat() {
   const handleSignIn = async () => {
     if (session && session.user && !userSignedIn) {
       setUserSignedIn(true);
-      //@ts-ignore
-      // await connectToAgoraRTM(session.user.id, token )
-      await getUser(session, dispatch).then(() => {
-        const token = userData.token;
+      await getUser(session, userId, dispatch).then(({token}) => {
         connectToAgoraRTM(userId, token);
-        setLoading(false);
-      });
+        setLoading(false)
+      })
     }
   };
 
