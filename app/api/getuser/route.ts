@@ -25,13 +25,15 @@ function getRtmToken(userId: string) {
 
 export const POST = async (req: Request, res: Response) => {
   try {
-    const { sessionId } = await req.json(); // Get session ID from the request body
-
+    const { sessionId, userId} = await req.json(); // Get session ID from the request body
+    console.log('userId is', userId)
     await dbConnect();
     // Find user by session ID
     const user = await User.findOne({ _id: sessionId });
     if (user) {
-      const token = getRtmToken("72");
+      // const token = getRtmToken("72");
+      const token = getRtmToken(userId)
+      console.log("token",token)
       console.log("user from api", user, "token", token);
       return new Response(JSON.stringify({user, token}), { status: 200 });
     } else {
