@@ -9,6 +9,7 @@ import {
 } from "@/features/user/userSlice";
 import { RootState } from "@/store/userStore";
 import { S3Upload } from "@/utils/useS3upload";
+import { toast } from "sonner";
 
 interface Props {
   about: string;
@@ -71,8 +72,11 @@ export default function EditProfile({ about, username, email }: Props) {
         await dispatch(updateUserProfileImageAction(result.url));
         setUpload(false);
         setFile(null);
+        toast.success("Profile picture updated ✅")
+
       }
     } catch (error) {
+      toast.error("An error occured")
       return error;
     }
   };
