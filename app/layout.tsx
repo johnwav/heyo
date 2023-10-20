@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import AuthProvider from "../components/provider";
 import {StoreProvider} from "@/components/storeProvider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Heyo Chat",
@@ -19,6 +20,7 @@ export default async function RootLayout({
         <html lang="en">
           {/* @ts-ignore */}
           <body className="max-w-[1920px] mx-auto">{children}</body>
+          <Toaster />
         </html>
       </AuthProvider>
     </StoreProvider>
