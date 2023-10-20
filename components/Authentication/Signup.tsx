@@ -6,6 +6,7 @@ import { TSignUpInputs } from "@/types/types";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function SignUpComponent() {
   const {
@@ -47,6 +48,7 @@ export default function SignUpComponent() {
       router.replace("/auth/login");
       console.log(result);
     } catch (error) {
+      toast.error("Error creating account")
       console.log("error creating account", error);
     } finally {
       setLoading(false);
