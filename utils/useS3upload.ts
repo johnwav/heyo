@@ -1,5 +1,5 @@
 import { S3 } from "aws-sdk";
-import { error } from "console";
+import { toast } from "sonner";
 
 interface Params {
   Bucket: string;
@@ -36,7 +36,8 @@ export const S3Upload = async (file: File) => {
 
     return { url, error };
   } catch (e) {
-    console.log("error uploading file", e);
+    toast.error("Error uploading file")
+    console.log("Error uploading file", e);
     error = e;
     return { url, error };
   }

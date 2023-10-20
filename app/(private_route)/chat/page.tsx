@@ -19,15 +19,11 @@ export default function Chat() {
     return state.user;
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [user, setUser] = useState({})
   const [loading, setLoading] = useState(true);
   const [userSignedIn, setUserSignedIn] = useState(false);
   const dispatch = useDispatch();
   const [userId] = useState(() => parseInt(`${Math.random() * 1e2}`) + "");
 
-  useEffect(() => {
-    setUser(userData)
-  }, [userData])
 
   useEffect(() => {
     handleSignIn();

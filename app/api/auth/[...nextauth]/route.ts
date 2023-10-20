@@ -20,9 +20,9 @@ export const authOptions: NextAuthOptions = {
         };
         await dbConnect();
         const user = await User.findOne({ email });
-        if (!user) throw new Error("email/password mismatch");
+        if (!user) throw new Error("Email/password mismatch");
         const passwordMatch = await user.comparePassword(password);
-        if (!passwordMatch) throw new Error("email/password mismatch");
+        if (!passwordMatch) throw new Error("Email/password mismatch");
 
         return {
           username: user.username,

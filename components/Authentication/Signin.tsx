@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Alert from "../Alert/Alert";
 import Link from "next/link";
+import { toast } from "sonner";
 
 interface Props {
   loading: boolean;
@@ -33,10 +34,13 @@ export default function SignInComponent() {
     });
     if (res?.error) {
       setLoading(false);
+      toast.error(res.error)
       return setError(res.error);
     }
     router.replace("/chat");
   };
+
+
 
   return (
     <div className="relative max-w-[507px] max-h-[697px] w-[26vw] min-w-[350px] h-[65vh] min-h-[500px] rounded-2xl bg-white">
@@ -48,12 +52,6 @@ export default function SignInComponent() {
         onSubmit={handleSubmit(onSubmit)}
         className="z-20 absolute flex gap-3 items-center justify-center flex-col w-full h-full rounded-2xl px-8 text-green"
       >
-        {error && (
-          <div className="mb-3">
-            <Alert value={error} />
-          </div>
-        )}
-
         {/* register your input into the hook by invoking the "register" function */}
         <label className="w-full flex flex-col">
           Email
