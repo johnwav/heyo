@@ -10,8 +10,8 @@ export interface userState {
   _id: string;
   about: string;
   profileImage: string;
+  token: string;
 }
-
 //@ts-ignore
 const initialState: userState = {};
 
@@ -21,6 +21,10 @@ export const userSlice = createSlice({
   reducers: {
     storeUserAction: (state, action: PayloadAction<userState>) => {
       return { ...state, ...action.payload };
+    },
+    storeToken: (state, action: PayloadAction<string>) => {
+      console.log('storing token', action.payload)
+      return { ...state, token: action.payload };
     },
     updateUserAboutAction: (state, action: PayloadAction<string>) => {
       return { ...state, about: action.payload };
@@ -36,6 +40,7 @@ export const {
   storeUserAction,
   updateUserAboutAction,
   updateUserProfileImageAction,
+  storeToken,
 } = userSlice.actions;
 
 export default userSlice.reducer;
