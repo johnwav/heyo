@@ -67,7 +67,6 @@ export default function EditProfile({ about, username, email }: Props) {
           body: JSON.stringify({ sessionId, url }),
         });
         const response = await data.json();
-        console.log(response);
         setUploadedFile(result.url);
         await dispatch(updateUserProfileImageAction(result.url));
         setUpload(false);
