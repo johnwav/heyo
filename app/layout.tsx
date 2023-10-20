@@ -20,7 +20,7 @@ export default async function RootLayout({
         <html lang="en">
           {/* @ts-ignore */}
           <body className="max-w-[1920px] mx-auto">{children}</body>
-          <Toaster />
+          <Toaster position="top-left" richColors />
         </html>
       </AuthProvider>
     </StoreProvider>
