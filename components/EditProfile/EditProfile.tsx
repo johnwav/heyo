@@ -175,7 +175,6 @@ export default function EditProfile({ about, username, email }: Props) {
               className="bg-[red] p-[60px] opacity-0 rounded-full"
               type="file"
               onChange={(e) => selectFile(e)}
-              accept="image/*"
             />
           </div>
         </button>
