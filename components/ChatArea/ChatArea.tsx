@@ -4,7 +4,11 @@ import Message from "../Message/Message";
 import { RootState } from "@/store/userStore";
 import { useSelector } from "react-redux";
 
-export default function ChatArea() {
+interface props {
+  sendMessage : (message : string) => void
+}
+
+export default function ChatArea({sendMessage}: props) {
   const messages = useSelector((state : RootState) => (state.messages))
 
   return (
@@ -30,7 +34,7 @@ export default function ChatArea() {
         className="w-full h-full object-cover absolute z-[0]"
       />
       <div className=" w-full h-auto absolute px-2 bottom-3">
-        <ChatTextFeild />
+        <ChatTextFeild sendMessage={sendMessage} />
       </div>
     </div>
   );
