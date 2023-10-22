@@ -12,6 +12,7 @@ import ChatArea from "@/components/ChatArea/ChatArea";
 import EditProfile from "@/components/EditProfile/EditProfile";
 import Modal from "react-modal";
 import Loading from "@/components/Loading/Loading";
+import { RtmClient } from "agora-rtm-sdk";
 
 export default function Chat() {
   const { data: session } = useSession();
@@ -22,51 +23,46 @@ export default function Chat() {
   const [loading, setLoading] = useState(true);
   const [userSignedIn, setUserSignedIn] = useState(false);
   const dispatch = useDispatch();
-  const [userId] = useState(() => parseInt(`${Math.random() * 1e2}`) + "");
-
-
-  useEffect(() => {
-    handleSignIn();
-    //@ts-ignore
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+  const [Gclient, setGClient] = useState<RtmClient>();
+  const [id, setId] = useState<string>();
+  const [currentChatDetails, setCurrentChatDetails] = useState({
+    username: "Christiana",
+    status: "online",
+    profileImage: "",
+    id: "",
+  });
 
   const handleSignIn = async () => {
     if (session && session.user && !userSignedIn) {
       setUserSignedIn(true);
-      await getUser(session, userId, dispatch).then(({token}) => {
-        connectToAgoraRTM(userId, token);
-        setLoading(false)
-      })
+      await getUser(session, dispatch).then(({ token, user }) => {
+        console.log("user id for agora is:", user.agoraId), setId(user.agoraId);
+        setLoading(false);
+        connectToAgoraRTM(user.agoraId, token);
+      });
     }
   };
 
-  async function connectToAgoraRTM(userId: string, token: string) {
+  useEffect(() => {
+    handleSignIn();
+  }, [session, handleSignIn]);
+
+  async function connectToAgoraRTM(id: string, token: string) {
     const { default: AgoraRTM } = await import("agora-rtm-sdk");
     const client = AgoraRTM.createInstance(
       process.env.NEXT_PUBLIC_AGORA_APP_ID!
     );
+    console.log("user id is :", id);
     await client.login({
-      uid: userId,
+      uid: id,
       token,
     });
-
-    // client.sendMessageToPeer
-    // const channel = await client.createChannel(roomId);
-    // await channel.join();
-
-    // channel.on("ChannelMessage", (message, userId) => {
-    //   // onMessage({
-    //   //   userId,
-    //   //   message: message.text,
-    //   // });
-    // });
-
-    // return {
-    //   channel,
-    // };
+    setGClient(client);
   }
+
+  const sendMessage = (message: string) => {
+    Gclient?.sendMessageToPeer({ text: message }, "43");
+  };
 
   const divStyle = {
     display: "grid",
@@ -76,19 +72,6 @@ export default function Chat() {
     height: "100%",
   };
   const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      padding: "0px",
-      outline: "none",
-      border: "none",
-    },
-  };
-  const loadingstyle = {
     content: {
       top: "50%",
       left: "50%",
@@ -112,14 +95,7 @@ export default function Chat() {
   return (
     <div style={divStyle}>
       {loading ? (
-        <Modal
-          isOpen={loading}
-          onRequestClose={closeModal}
-          style={customStyles}
-          ariaHideApp={false}
-        >
-          <Loading />
-        </Modal>
+        <Loading />
       ) : (
         <>
           <div className="flex flex-col gap-[1.5em] h-screen pb-[3em] drop-shadow-md">
@@ -128,81 +104,67 @@ export default function Chat() {
                 username={userData.username}
                 profileImage={userData.profileImage}
                 sendOpenModal={openModal}
+                // id here is the id of the loggged in user
+                id={id}
               />
             </div>
             <div className="">
               <SearchChats />
             </div>
             <div className="scroll w-full flex-grow  bg-white rounded-[30px] p-[1.5em] overflow-scroll ">
-              <ChatCard
-                firstName="Christiana"
-                lastName="Beth"
-                status="online"
-                profileImage=""
-                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-                time="08:05 PM"
-                typing={false}
-              />
-              <ChatCard
-                firstName="Christiana"
-                lastName="Beth"
-                status="online"
-                profileImage=""
-                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-                time="08:05 PM"
-                typing={false}
-              />
-              <ChatCard
-                firstName="Christiana"
-                lastName="Beth"
-                status="online"
-                profileImage=""
-                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-                time="08:05 PM"
-                typing={false}
-              />
-              <ChatCard
-                firstName="Christiana"
-                lastName="Beth"
-                status="online"
-                profileImage=""
-                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-                time="08:05 PM"
-                typing={false}
-              />
-              <ChatCard
-                firstName="Christiana"
-                lastName="Beth"
-                status="online"
-                profileImage=""
-                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-                time="08:05 PM"
-                typing={false}
-              />
-              <ChatCard
-                firstName="Christiana"
-                lastName="Beth"
-                status="online"
-                profileImage=""
-                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-                time="08:05 PM"
-                typing={false}
-              />
-              <ChatCard
-                firstName="Christiana"
-                lastName="Beth"
-                status="online"
-                profileImage=""
-                lastMessage="Lets go to the cinema. i heard they have  sdskdnskdnsdknksdskjdnskdnskdn"
-                time="08:05 PM"
-                typing={false}
-              />
+              <div
+                onClick={() => {
+                  setCurrentChatDetails({
+                    username: "Christiana",
+                    id: "",
+                    profileImage: "",
+                    status: "Online",
+                  });
+                }}
+              >
+                <ChatCard
+                  firstName="Christiana"
+                  lastName="Beth"
+                  status="online"
+                  profileImage=""
+                  lastMessage="Lets go to the cinema this friday!"
+                  time="08:05 PM"
+                  typing={false}
+                  id={currentChatDetails.id}
+                />
+              </div>
+
+              <div
+                onClick={() =>
+                  setCurrentChatDetails({
+                    username: "James",
+                    id: "832",
+                    profileImage: "",
+                    status: "Online",
+                  })
+                }
+              >
+                <ChatCard
+                  firstName="James"
+                  lastName="Franko"
+                  status="online"
+                  profileImage=""
+                  lastMessage="Still Up for tonight?"
+                  time="08:05 PM"
+                  typing={false}
+                  id={currentChatDetails.id}
+                />
+              </div>
             </div>
           </div>
           <div className="flex flex-col drop-shadow-md pb-[3em]">
-            <ChatHeader username="Christiana" status="online" profileImage="" />
+            <ChatHeader
+              {...currentChatDetails}
+              // // id here is the id of the user you're interacting with
+              // id={peerId}
+            />
             <div className="w-full h-full">
-              <ChatArea />
+              <ChatArea sendMessage={sendMessage} />
             </div>
           </div>
           <Modal
@@ -224,3 +186,8 @@ export default function Chat() {
     </div>
   );
 }
+
+
+//TOdo : get the id of currrent chat
+// use the agora id to fetch the messages in the current chat you're in
+
