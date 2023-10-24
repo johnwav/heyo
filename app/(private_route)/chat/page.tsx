@@ -31,6 +31,7 @@ export default function Chat() {
     profileImage: "",
     id: "",
   });
+  const [peer, setPeer] = useState("");
 
   const handleSignIn = async () => {
     if (session && session.user && !userSignedIn) {
@@ -47,6 +48,10 @@ export default function Chat() {
     handleSignIn();
   }, [session, handleSignIn]);
 
+  useEffect(() => {
+    console.log(peer);
+  }, [peer]);
+
   async function connectToAgoraRTM(id: string, token: string) {
     const { default: AgoraRTM } = await import("agora-rtm-sdk");
     const client = AgoraRTM.createInstance(
@@ -61,7 +66,7 @@ export default function Chat() {
   }
 
   const sendMessage = (message: string) => {
-    Gclient?.sendMessageToPeer({ text: message }, "43");
+    Gclient?.sendMessageToPeer({ text: message }, peer);
   };
 
   const divStyle = {
@@ -115,15 +120,16 @@ export default function Chat() {
               <div
                 onClick={() => {
                   setCurrentChatDetails({
-                    username: "Christiana",
-                    id: "",
+                    username: "Christiana A2",
+                    id: "2233",
                     profileImage: "",
                     status: "Online",
                   });
+                  setPeer(currentChatDetails.id);
                 }}
               >
                 <ChatCard
-                  firstName="Christiana"
+                  firstName="Christiana A2"
                   lastName="Beth"
                   status="online"
                   profileImage=""
@@ -133,19 +139,19 @@ export default function Chat() {
                   id={currentChatDetails.id}
                 />
               </div>
-
               <div
-                onClick={() =>
+                onClick={() => {
                   setCurrentChatDetails({
-                    username: "James",
+                    username: "James A",
                     id: "832",
                     profileImage: "",
                     status: "Online",
-                  })
-                }
+                  });
+                  setPeer(currentChatDetails.id);
+                }}
               >
                 <ChatCard
-                  firstName="James"
+                  firstName="James A"
                   lastName="Franko"
                   status="online"
                   profileImage=""
@@ -187,7 +193,5 @@ export default function Chat() {
   );
 }
 
-
 //TOdo : get the id of currrent chat
 // use the agora id to fetch the messages in the current chat you're in
-
