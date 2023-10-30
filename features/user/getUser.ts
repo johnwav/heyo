@@ -1,14 +1,15 @@
 import { Session } from "next-auth";
-import { storeToken, storeUserAction } from "./userSlice";
+import { storeToken, storeUserAction, userState } from "./userSlice";
 import { Dispatch } from "react";
 import { AnyAction } from "@reduxjs/toolkit";
+import { toast } from "sonner";
 
 export const getUser = async (
   session: Session,
-  userId: string,
   dispatch: Dispatch<AnyAction>
 ): Promise<{
   token: string;
+  user: userState;
 }> => {
   return new Promise(async (resolve, reject) => {
     if (session) {
@@ -20,15 +21,16 @@ export const getUser = async (
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ sessionId, userId }),
+          body: JSON.stringify({ sessionId }),
         });
         if (response.ok) {
           const { user, token } = await response.json();
           // setUser(user);
           await dispatch(storeUserAction(user));
           await dispatch(storeToken(token));
-          resolve({ token });
+          resolve({ token, user });
         } else {
+          toast.error("Error fetching user data");
           console.error("Error fetching user data:", response.statusText);
           reject(response.statusText);
         }

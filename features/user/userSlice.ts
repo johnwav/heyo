@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 export interface userState {
+  agoraId: string;
   email: string;
   lastSeen: string;
   online: boolean;

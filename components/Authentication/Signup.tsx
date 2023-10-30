@@ -45,6 +45,7 @@ export default function SignUpComponent() {
       });
       const result = await response.json();
       setLoading(false);
+      toast.success("Account created successfully")
       router.replace("/auth/login");
       console.log(result);
     } catch (error) {
@@ -127,7 +128,7 @@ export default function SignUpComponent() {
           )}
         </label>
 
-        <SignIn loading={loading} text="Sign in" />
+        <SignIn loading={loading} text="Create Account" />
         <GoogleSignIn text="Continue with Google instead" />
 
         <p className="text-[12px]">

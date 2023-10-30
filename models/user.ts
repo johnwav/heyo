@@ -7,6 +7,11 @@ const UserSchema = new Schema({
     unique: [true, "Email already exists!"],
     required: [true, "Email is required!"],
   },
+  agoraId: {
+    type: String,
+    unique: [true],
+    default: () => Math.floor(Math.random() * 1e4).toString(),
+  },
   username: {
     type: String,
     required: [true, "Username is required!"],
@@ -44,9 +49,9 @@ const UserSchema = new Schema({
   friends: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Friend'
-    }
-  ]
+      ref: "Friend",
+    },
+  ],
 });
 
 //Hash the password before saving

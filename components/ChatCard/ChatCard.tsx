@@ -8,6 +8,7 @@ export default function ChatCard({
   lastMessage,
   time,
   profileImage,
+  id
 }: IChatCardProps) {
   const maxMessageLength = 70; // Adjust the maximum length of the message here
 

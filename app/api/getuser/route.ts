@@ -1,9 +1,7 @@
 import dbConnect from "@/utils/database";
 import User from "@/models/user";
-import {
-  RtmRole,
-  RtmTokenBuilder,
-} from "agora-access-token";
+import { RtmRole, RtmTokenBuilder } from "agora-access-token";
+import { userState } from "@/features/user/userSlice";
 
 function getRtmToken(userId: string) {
   const appID = process.env.NEXT_PUBLIC_AGORA_APP_ID!;
@@ -25,17 +23,15 @@ function getRtmToken(userId: string) {
 
 export const POST = async (req: Request, res: Response) => {
   try {
-    const { sessionId, userId} = await req.json(); // Get session ID from the request body
-    console.log('userId is', userId)
+    const { sessionId } = await req.json(); // Get session ID from the request body
     await dbConnect();
     // Find user by session ID
-    const user = await User.findOne({ _id: sessionId });
+    const user = <userState>await User.findOne({ _id: sessionId });
     if (user) {
-      // const token = getRtmToken("72");
-      const token = getRtmToken(userId)
-      console.log("token",token)
+      const agoraId = user.agoraId;
+      const token = getRtmToken(agoraId);
       console.log("user from api", user, "token", token);
-      return new Response(JSON.stringify({user, token}), { status: 200 });
+      return new Response(JSON.stringify({ user, token }), { status: 200 });
     } else {
       return new Response("User not found", { status: 404 });
     }

@@ -1,7 +1,7 @@
 import { IChatHeaderProps } from "@/types/types";
 import Image from "next/image";
 
-export default function ChatHeader({username, status, profileImage}: IChatHeaderProps) {
+export default function ChatHeader({username, status, profileImage, id}: IChatHeaderProps) {
   return (
     <div className="bg-white w-full flex items-center justify-between rounded-t-[30px] min-h-[101px] px-[44px] max-w-[1176px]">
       <div className="user flex gap-2 ">

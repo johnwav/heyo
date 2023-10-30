@@ -1,10 +1,15 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 
-export default function ChatTextFeild() {
+interface props {
+  sendMessage: (message: string) => void;
+}
+
+export default function ChatTextFeild({ sendMessage }: props) {
   const [message, setMessage] = useState<string>("");
 
   function handleSubmit() {
+    sendMessage(message)
     console.log(message);
   }
 

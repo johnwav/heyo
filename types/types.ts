@@ -9,7 +9,8 @@ export interface IChatHeaderProps {
   username: string;
   status?: string;
   profileImage: string;
-  sendOpenModal?: (val:boolean) => void
+  sendOpenModal?: (val: boolean) => void;
+  id: string | undefined;
 }
 
 // chat card component
@@ -22,6 +23,7 @@ export interface IChatCardProps {
   typing: boolean;
   time: string;
   lastMessage: string;
+  id: string;
 }
 
 export type TSignInInputs = {
@@ -43,5 +45,5 @@ export interface IUserProfile {
 }
 
 export interface IAlertProps {
-  value: string
+  value: string;
 }
